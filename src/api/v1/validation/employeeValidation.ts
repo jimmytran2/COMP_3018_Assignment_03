@@ -4,7 +4,7 @@ import Joi, { ObjectSchema } from "joi";
 
 export const employeeSchema: ObjectSchema = Joi.object({
   id: Joi.number().integer().min(0).optional().messages({
-    "any.required": "Name is required",
+    "any.required": "ID is required",
     "number.empty": "ID cannot be empty",
     "number.integer": "ID must be an integer",
     "number.min": "ID must be a postitive number",
@@ -42,7 +42,7 @@ export const employeeSchema: ObjectSchema = Joi.object({
       "string.empty": "Phone number cannot be empty",
     }),
   branch: Joi.number().integer().min(0).required().messages({
-    "any.required": "Name is required",
+    "any.required": "Branch ID is required",
     "number.empty": "Branch ID cannot be empty",
     "number.integer": "Branch ID must be an integer",
     "number.min": "Branch ID must be a postitive number",

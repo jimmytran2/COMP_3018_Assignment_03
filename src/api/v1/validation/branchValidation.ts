@@ -2,7 +2,7 @@ import Joi, { ObjectSchema } from "joi";
 
 export const branchschema: ObjectSchema = Joi.object({
   id: Joi.number().integer().min(0).optional().messages({
-    "any.required": "Name is required",
+    "any.required": "ID is required",
     "number.empty": "ID cannot be empty",
     "number.integer": "ID must be an integer",
     "number.min": "ID must be a postitive number",
