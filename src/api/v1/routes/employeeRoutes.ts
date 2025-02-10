@@ -8,6 +8,8 @@
 
 import express, { Router } from "express";
 import * as employeeController from "../controllers/employeeControllers";
+import { validateRequest } from "../middleware/validate";
+import { employeeSchema } from "../validation/employeeValidation";
 
 const router: Router = express.Router();
 
@@ -42,7 +44,11 @@ const router: Router = express.Router();
  *       201:
  *         description: the new employee that was created
  */
-router.post("/", employeeController.createEmployee);
+router.post(
+  "/",
+  validateRequest(employeeSchema),
+  employeeController.createEmployee
+);
 
 /**
  * @route GET /
@@ -117,7 +123,11 @@ router.get("/:id", employeeController.getEmployeeById);
  *       200:
  *         description: the updated employee
  */
-router.put("/:id", employeeController.updateEmployee);
+router.put(
+  "/:id",
+  validateRequest(employeeSchema),
+  employeeController.updateEmployee
+);
 
 /**
  * @route DELETE /:id
