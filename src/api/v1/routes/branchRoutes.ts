@@ -8,6 +8,8 @@
 
 import express, { Router } from "express";
 import * as branchController from "../controllers/branchControllers";
+import { validateRequest } from "../middleware/validate";
+import { branchSchema } from "../validation/branchValidation";
 
 const router: Router = express.Router();
 
@@ -37,7 +39,7 @@ const router: Router = express.Router();
  *         description: the new branch that was created
  *
  */
-router.post("/", branchController.createBranch);
+router.post("/", validateRequest(branchSchema), branchController.createBranch);
 
 /**
  * @route GET /
@@ -108,7 +110,11 @@ router.get("/:id", branchController.getBranchById);
  *       200:
  *         description: the updated branch
  */
-router.put("/:id", branchController.updateBranch);
+router.put(
+  "/:id",
+  validateRequest(branchSchema),
+  branchController.updateBranch
+);
 
 /**
  * @route DELETE /:id

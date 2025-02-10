@@ -1,6 +1,6 @@
 import Joi, { ObjectSchema } from "joi";
 
-export const branchschema: ObjectSchema = Joi.object({
+export const branchSchema: ObjectSchema = Joi.object({
   id: Joi.number().integer().min(0).optional().messages({
     "any.required": "ID is required",
     "number.empty": "ID cannot be empty",
