@@ -3,9 +3,8 @@ import Joi, { ObjectSchema } from "joi";
 // https://stackoverflow.com/questions/57993305/how-can-i-validate-number-of-digits-from-joi-using-nodejs
 
 export const employeeSchema: ObjectSchema = Joi.object({
-  id: Joi.number().integer().min(0).optional().messages({
-    "any.required": "ID is required",
-    "number.empty": "ID cannot be empty",
+  id: Joi.number().integer().min(0).optional().strict().messages({
+    "number.base": "ID must be a number",
     "number.integer": "ID must be an integer",
     "number.min": "ID must be a postitive number",
   }),
@@ -38,11 +37,12 @@ export const employeeSchema: ObjectSchema = Joi.object({
     .required()
     .messages({
       "any.required": "Phone number is required",
-      "string.pattern": "Invalid phone number format",
+      "string.pattern.base": "Invalid phone number format",
       "string.empty": "Phone number cannot be empty",
     }),
-  branch: Joi.number().integer().min(0).required().messages({
+  branch: Joi.number().integer().min(0).required().strict().messages({
     "any.required": "Branch ID is required",
+    "number.base": "Branch ID must be a number",
     "number.empty": "Branch ID cannot be empty",
     "number.integer": "Branch ID must be an integer",
     "number.min": "Branch ID must be a postitive number",
