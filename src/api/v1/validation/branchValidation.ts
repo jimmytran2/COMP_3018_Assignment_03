@@ -1,9 +1,8 @@
 import Joi, { ObjectSchema } from "joi";
 
 export const branchSchema: ObjectSchema = Joi.object({
-  id: Joi.number().integer().min(0).optional().messages({
-    "any.required": "ID is required",
-    "number.empty": "ID cannot be empty",
+  id: Joi.number().integer().min(0).optional().strict().messages({
+    "number.base": "ID must be a number",
     "number.integer": "ID must be an integer",
     "number.min": "ID must be a postitive number",
   }),
@@ -20,7 +19,7 @@ export const branchSchema: ObjectSchema = Joi.object({
     .required()
     .messages({
       "any.required": "Phone number is required",
-      "string.pattern": "Invalid phone number format",
+      "string.pattern.base": "Invalid phone number format",
       "string.empty": "Phone number cannot be empty",
     }),
 });

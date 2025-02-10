@@ -43,7 +43,6 @@ export const employeeSchema: ObjectSchema = Joi.object({
   branch: Joi.number().integer().min(0).required().strict().messages({
     "any.required": "Branch ID is required",
     "number.base": "Branch ID must be a number",
-    "number.empty": "Branch ID cannot be empty",
     "number.integer": "Branch ID must be an integer",
     "number.min": "Branch ID must be a postitive number",
   }),
