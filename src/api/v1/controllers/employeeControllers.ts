@@ -9,6 +9,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as employeeService from "../services/employeeServices";
 import type { Employee } from "../services/employeeServices";
+import { successResponse } from "../models/responseModel";
 
 /**
  * @description Create a new employee
@@ -24,7 +25,7 @@ export const createEmployee = async (
     const newEmployee: Employee = await employeeService.createEmployee(
       req.body
     );
-    res.status(201).json({ message: "Employee created", data: newEmployee });
+    res.status(201).json(successResponse(newEmployee, "Employee created"));
   } catch (error) {
     next(error);
   }
@@ -42,7 +43,7 @@ export const getAllEmployees = async (
 ): Promise<void> => {
   try {
     const employees: Employee[] = await employeeService.getAllEmployees();
-    res.status(200).json({ message: "Employees retrieved", data: employees });
+    res.status(200).json(successResponse(employees, "Employees retrieved"));
   } catch (error) {
     next(error);
   }
@@ -62,7 +63,7 @@ export const getEmployeeById = async (
     const employee: Employee = await employeeService.getEmployeeById(
       Number(req.params.id)
     );
-    res.status(200).json({ message: "Employee retrieved", data: employee });
+    res.status(200).json(successResponse(employee, "Employee retrieved"));
   } catch (error) {
     next(error);
   }
@@ -84,9 +85,7 @@ export const updateEmployee = async (
       req.body
     );
 
-    res
-      .status(200)
-      .json({ message: "Employee updated", data: updatedEmployee });
+    res.status(200).json(successResponse(updateEmployee, "Employee updated"));
   } catch (error) {
     next(error);
   }
@@ -104,7 +103,7 @@ export const deleteEmployee = async (
 ): Promise<void> => {
   try {
     await employeeService.deleteEmployee(Number(req.params.id));
-    res.status(200).json({ message: "Employee deleted" });
+    res.status(200).json(successResponse({ message: "Employee deleted" }));
   } catch (error) {
     next(error);
   }
@@ -126,7 +125,7 @@ export const getEmployeeByBranch = async (
     );
     res
       .status(200)
-      .json({ message: "Employees from branch retrieved", data: employees });
+      .json(successResponse(employees, "Employees from branch retrieved"));
   } catch (error) {
     next(error);
   }
@@ -146,10 +145,9 @@ export const getEmployeeByDepartment = async (
     const employees: Employee[] = await employeeService.getEmployeeByDepartment(
       req.params.department
     );
-    res.status(200).json({
-      message: "Employees from department retrieved",
-      data: employees,
-    });
+    res
+      .status(200)
+      .json(successResponse(employees, "Employees from department retrieved"));
   } catch (error) {
     next(error);
   }
