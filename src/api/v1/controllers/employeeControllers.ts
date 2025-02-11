@@ -85,7 +85,7 @@ export const updateEmployee = async (
       req.body
     );
 
-    res.status(200).json(successResponse(updateEmployee, "Employee updated"));
+    res.status(200).json(successResponse(updatedEmployee, "Employee updated"));
   } catch (error) {
     next(error);
   }

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as employeeController from "../src/api/v1/controllers/employeeControllers";
 import * as employeeService from "../src/api/v1/services/employeeServices";
 import type { Employee } from "../src/api/v1/services/employeeServices";
+import { successResponse } from "../src/api/v1/models/responseModel";
 
 jest.mock("../src/api/v1/services/employeeServices");
 
@@ -40,10 +41,9 @@ describe("Employee Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(201);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Employee created",
-        data: mockEmployee,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockEmployee, "Employee created")
+      );
     });
   });
 
@@ -72,10 +72,9 @@ describe("Employee Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Employees retrieved",
-        data: mockEmployee,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockEmployee, "Employees retrieved")
+      );
     });
   });
 
@@ -102,10 +101,9 @@ describe("Employee Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Employee retrieved",
-        data: mockEmployee,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockEmployee, "Employee retrieved")
+      );
     });
   });
 
@@ -132,10 +130,9 @@ describe("Employee Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Employee updated",
-        data: mockEmployee,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockEmployee, "Employee updated")
+      );
     });
   });
 
@@ -152,9 +149,9 @@ describe("Employee Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Employee deleted",
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse({ message: "Employee deleted" })
+      );
     });
   });
 
@@ -183,10 +180,9 @@ describe("Employee Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Employees from branch retrieved",
-        data: mockEmployee,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockEmployee, "Employees from branch retrieved")
+      );
     });
   });
 
@@ -215,10 +211,9 @@ describe("Employee Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Employees from department retrieved",
-        data: mockEmployee,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockEmployee, "Employees from department retrieved")
+      );
     });
   });
 });
