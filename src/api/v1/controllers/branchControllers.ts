@@ -9,6 +9,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as branchService from "../services/branchServices";
 import type { Branch } from "../services/branchServices";
+import { successResponse } from "../models/responseModel";
 
 /**
  * @description Create a new branch
@@ -22,7 +23,7 @@ export const createBranch = async (
 ): Promise<void> => {
   try {
     const newBranch: Branch = await branchService.createBranch(req.body);
-    res.status(201).json({ message: "Branch created", data: newBranch });
+    res.status(201).json(successResponse(newBranch, "Branch created"));
   } catch (error) {
     next(error);
   }
@@ -40,7 +41,7 @@ export const getAllBranches = async (
 ): Promise<void> => {
   try {
     const branches: Branch[] = await branchService.getAllBranches();
-    res.status(200).json({ message: "Branches retrieved", data: branches });
+    res.status(200).json(successResponse(branches, "Branches retrieved"));
   } catch (error) {
     next(error);
   }
@@ -60,7 +61,7 @@ export const getBranchById = async (
     const branch: Branch = await branchService.getBranchById(
       Number(req.params.id)
     );
-    res.status(200).json({ message: "Branch retrieved", data: branch });
+    res.status(200).json(successResponse(branch, "Branch retrieved"));
   } catch (error) {
     next(error);
   }
@@ -82,7 +83,7 @@ export const updateBranch = async (
       req.body
     );
 
-    res.status(200).json({ message: "Branch updated", data: updatedBranch });
+    res.status(200).json(successResponse(updatedBranch, "Branch updated"));
   } catch (error) {
     next(error);
   }
@@ -100,7 +101,7 @@ export const deleteBranch = async (
 ): Promise<void> => {
   try {
     await branchService.deleteBranch(Number(req.params.id));
-    res.status(200).json({ message: "Branch deleted" });
+    res.status(200).json(successResponse({ message: "Branch deleted" }));
   } catch (error) {
     next(error);
   }

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as branchController from "../src/api/v1/controllers/branchControllers";
 import * as branchService from "../src/api/v1/services/branchServices";
 import type { Branch } from "../src/api/v1/services/branchServices";
-
+import { successResponse } from "../src/api/v1/models/responseModel";
 jest.mock("../src/api/v1/services/branchServices");
 
 describe("Branch Controller", () => {
