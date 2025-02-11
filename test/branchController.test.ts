@@ -3,6 +3,7 @@ import * as branchController from "../src/api/v1/controllers/branchControllers";
 import * as branchService from "../src/api/v1/services/branchServices";
 import type { Branch } from "../src/api/v1/services/branchServices";
 import { successResponse } from "../src/api/v1/models/responseModel";
+
 jest.mock("../src/api/v1/services/branchServices");
 
 describe("Branch Controller", () => {
@@ -35,10 +36,9 @@ describe("Branch Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(201);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Branch created",
-        data: mockBranch,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockBranch, "Branch created")
+      );
     });
   });
 
@@ -62,10 +62,9 @@ describe("Branch Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Branches retrieved",
-        data: mockBranch,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockBranch, "Branches retrieved")
+      );
     });
   });
 
@@ -87,10 +86,9 @@ describe("Branch Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Branch retrieved",
-        data: mockBranch,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockBranch, "Branch retrieved")
+      );
     });
   });
 
@@ -112,10 +110,9 @@ describe("Branch Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Branch updated",
-        data: mockBranch,
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse(mockBranch, "Branch updated")
+      );
     });
   });
 
@@ -130,9 +127,9 @@ describe("Branch Controller", () => {
       );
 
       expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith({
-        message: "Branch deleted",
-      });
+      expect(mockRes.json).toHaveBeenCalledWith(
+        successResponse({ message: "Branch deleted" })
+      );
     });
   });
 });
