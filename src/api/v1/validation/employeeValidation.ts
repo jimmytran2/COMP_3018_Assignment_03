@@ -3,7 +3,7 @@ import Joi, { ObjectSchema } from "joi";
 // https://stackoverflow.com/questions/57993305/how-can-i-validate-number-of-digits-from-joi-using-nodejs
 
 export const employeeSchema: ObjectSchema = Joi.object({
-  id: Joi.number().integer().min(0).optional().strict().messages({
+  id: Joi.number().integer().min(0).optional().messages({
     "number.base": "ID must be a number",
     "number.integer": "ID must be an integer",
     "number.min": "ID must be a postitive number",

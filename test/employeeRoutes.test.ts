@@ -34,7 +34,7 @@ describe("Employee Routes", () => {
         position: "Manager",
         department: "Accounting",
         email: "johndoe@pixell-river.com",
-        phone: "123-456-7890",
+        phone: "1234567890",
         branch: 9,
       };
 
@@ -67,11 +67,11 @@ describe("Employee Routes", () => {
         position: "Manager",
         department: "Accounting",
         email: "johndoe@pixell-river.com",
-        phone: "123-456-7890",
+        phone: "1234567890",
         branch: 9,
       };
 
-      const mockId: number = 1;
+      const mockId: string = "1";
 
       await request(app).put(`/api/v1/employees/${mockId}`).send(mockEmployee);
       expect(updateEmployee).toHaveBeenCalled();

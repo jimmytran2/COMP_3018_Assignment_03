@@ -28,7 +28,7 @@ describe("Branch Routes", () => {
         id: 1,
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
-        phone: "604-456-0022",
+        phone: "6044560022",
       };
 
       await request(app).post("/api/v1/branches").send(mockBranch);
@@ -58,7 +58,7 @@ describe("Branch Routes", () => {
         id: 1,
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
-        phone: "604-456-0022",
+        phone: "6044560022",
       };
 
       const mockId: number = 1;
