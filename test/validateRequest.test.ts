@@ -139,7 +139,7 @@ describe("validateRequest Middleware", () => {
   it("should should for valid inputs for branchSchema", () => {
     // Arrange
     mockReq.body = {
-      name: "Jimmy",
+      name: "Winnipeg Branch",
       address: "123 Street St",
       phone: "1234567890",
     };
@@ -193,7 +193,7 @@ describe("validateRequest Middleware", () => {
   it("should should for invalid phone number format", () => {
     // Arrange
     mockReq.body = {
-      name: "Jimmy",
+      name: "Winnipeg Branch",
       address: "123 Street St",
       phone: "phone",
     };

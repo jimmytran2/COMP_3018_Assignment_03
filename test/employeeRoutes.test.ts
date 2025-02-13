@@ -18,7 +18,7 @@ jest.mock("../src/api/v1/controllers/employeeControllers", () => ({
   updateEmployee: jest.fn((req, res) => res.status(200).send()),
   deleteEmployee: jest.fn((req, res) => res.status(200).send()),
   getEmployeeByBranch: jest.fn((req, res) => res.status(200).send()),
-  getEmployeeByDepartment: jest.fn((req, res) => res.statsu(200).send()),
+  getEmployeeByDepartment: jest.fn((req, res) => res.status(200).send()),
 }));
 
 describe("Employee Routes", () => {
