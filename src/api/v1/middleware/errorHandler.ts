@@ -90,4 +90,20 @@ export class ValidationError extends Error {
   }
 }
 
+export class ServiceError extends Error {
+  code: string;
+  statusCode: number;
+
+  constructor(
+    message: string,
+    code: string = "SERVICE_ERROR",
+    statusCode: number = 460
+  ) {
+    super(message);
+    this.name = "ServiceError";
+    this.code = code;
+    this.statusCode = statusCode;
+  }
+}
+
 export default errorHandler;
