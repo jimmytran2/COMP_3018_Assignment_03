@@ -5,7 +5,9 @@
  */
 
 import { branchData } from "./branchData";
-
+import { ServiceError } from "../middleware/errorHandler";
+import { validate } from "../middleware/validate";
+import { branchSchema } from "../validation/branchValidation";
 /**
  * @interface Branch
  * @description Represents a branch object
@@ -31,10 +33,15 @@ export const createBranch = async (branch: {
   address: string;
   phone: string;
 }): Promise<Branch> => {
-  newBranchId++;
-  const newBranch: Branch = { id: newBranchId, ...branch };
-  branches.push(newBranch);
-  return newBranch;
+  try {
+    validate(branchSchema, branch);
+    newBranchId++;
+    const newBranch: Branch = { id: newBranchId, ...branch };
+    branches.push(newBranch);
+    return newBranch;
+  } catch (error) {
+    throw new ServiceError(`Failed to create branch`);
+  }
 };
 
 /**
@@ -72,17 +79,21 @@ export const updateBranch = async (
   id: number,
   branchData: Partial<Branch>
 ): Promise<Branch> => {
-  const index: number = branches.findIndex((i) => i.id === id);
+  try {
+    const index: number = branches.findIndex((i) => i.id === id);
 
-  if (index === -1) {
-    throw new Error(`Branch with ID ${id} not found`);
+    if (index === -1) {
+      throw new Error(`Branch with ID ${id} not found`);
+    }
+
+    const safeBranchData: Partial<Branch> = { ...branchData };
+    delete safeBranchData.id;
+
+    branches[index] = { ...branches[index], ...safeBranchData };
+    return branches[index];
+  } catch (error) {
+    throw new ServiceError(`Failed to update branch`);
   }
-
-  const safeBranchData: Partial<Branch> = { ...branchData };
-  delete safeBranchData.id;
-
-  branches[index] = { ...branches[index], ...safeBranchData };
-  return branches[index];
 };
 
 /**
