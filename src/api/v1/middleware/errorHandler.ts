@@ -75,8 +75,8 @@ const errorHandler = (
 
 // https://medium.com/@Nelsonalfonso/understanding-custom-errors-in-typescript-a-complete-guide-f47a1df9354c
 export class ValidationError extends Error {
-  statusCode: number;
   code: string;
+  statusCode: number;
 
   constructor(
     message: string,

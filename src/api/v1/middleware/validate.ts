@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
+import { ValidationError } from "./errorHandler";
 
 import { MiddlewareFunction, RequestData } from "../types/expressTypes";
 
 export const validate = <T>(schema: ObjectSchema<T>, data: T): void => {
   const { error } = schema.validate(data, { abortEarly: false });
   if (error) {
-    throw new Error(
+    throw new ValidationError(
       `Validation error: ${error.details.map((x) => x.message).join(", ")}`
     );
   }
@@ -23,7 +24,11 @@ export const validateRequest = (schema: ObjectSchema): MiddlewareFunction => {
       validate(schema, data);
       next();
     } catch (error) {
-      res.status(400).json({ error: (error as Error).message });
+      if (error instanceof ValidationError) {
+        res.status(error.statusCode).json({ error: error.message });
+      } else {
+        res.status(400).json({ error: (error as Error).message });
+      }
     }
   };
 };
