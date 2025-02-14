@@ -66,11 +66,16 @@ const errorHandler = (
 
   // Send a sanitized error response to the client
   // We don't send the actual error message to avoid exposing sensitive details
-  res
-    .status(statusCode)
-    .json(
-      errorResponse("An unexpected error occurred. Please try again.", code)
-    );
+  if (err instanceof ValidationError || err instanceof ServiceError) {
+    res.status(err.statusCode).json(errorResponse(err.message, err.code));
+  } else {
+    // Generic error response for unhandled errors
+    res
+      .status(statusCode)
+      .json(
+        errorResponse("An unexpected error occurred. Please try again.", code)
+      );
+  }
 };
 
 // https://medium.com/@Nelsonalfonso/understanding-custom-errors-in-typescript-a-complete-guide-f47a1df9354c
