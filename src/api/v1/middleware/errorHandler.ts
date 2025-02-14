@@ -73,4 +73,21 @@ const errorHandler = (
     );
 };
 
+// https://medium.com/@Nelsonalfonso/understanding-custom-errors-in-typescript-a-complete-guide-f47a1df9354c
+export class ValidationError extends Error {
+  statusCode: number;
+  code: string;
+
+  constructor(
+    message: string,
+    code: string = "VALIDATION_ERROR",
+    statusCode: number = 450
+  ) {
+    super(message);
+    this.name = "ValidationError";
+    this.code = code;
+    this.statusCode = statusCode;
+  }
+}
+
 export default errorHandler;
