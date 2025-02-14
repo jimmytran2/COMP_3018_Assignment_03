@@ -6,6 +6,9 @@
 
 import { employeeData } from "./employeeData";
 import { branchData } from "./branchData";
+import { ServiceError } from "../middleware/errorHandler";
+import { validate } from "../middleware/validate";
+import { employeeSchema } from "../validation/employeeValidation";
 
 /**
  * @interface Employee
@@ -38,10 +41,14 @@ export const createEmployee = async (employee: {
   phone: string;
   branch: number;
 }): Promise<Employee> => {
-  newEmployeeId++;
-  const newEmployee: Employee = { id: newEmployeeId, ...employee };
-  employees.push(newEmployee);
-  return newEmployee;
+  try {
+    newEmployeeId++;
+    const newEmployee: Employee = { id: newEmployeeId, ...employee };
+    employees.push(newEmployee);
+    return newEmployee;
+  } catch (error) {
+    throw new ServiceError(`Failed to create employee`);
+  }
 };
 
 /**
@@ -79,18 +86,22 @@ export const updateEmployee = async (
   id: number,
   employeeData: Partial<Employee>
 ): Promise<Employee> => {
-  const index: number = employees.findIndex((i) => i.id === id);
+  try {
+    const index: number = employees.findIndex((i) => i.id === id);
 
-  if (index === -1) {
-    throw new Error(`Employee with ID ${id} not found`);
+    if (index === -1) {
+      throw new Error(`Employee with ID ${id} not found`);
+    }
+
+    const safeEmployeeData: Partial<Employee> = { ...employeeData };
+    delete safeEmployeeData.id;
+    delete safeEmployeeData.name;
+
+    employees[index] = { ...employees[index], ...safeEmployeeData };
+    return employees[index];
+  } catch (error) {
+    throw new ServiceError(`Failed to update employee`);
   }
-
-  const safeEmployeeData: Partial<Employee> = { ...employeeData };
-  delete safeEmployeeData.id;
-  delete safeEmployeeData.name;
-
-  employees[index] = { ...employees[index], ...safeEmployeeData };
-  return employees[index];
 };
 
 /**

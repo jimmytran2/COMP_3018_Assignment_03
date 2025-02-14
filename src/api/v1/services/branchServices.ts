@@ -8,6 +8,7 @@ import { branchData } from "./branchData";
 import { ServiceError } from "../middleware/errorHandler";
 import { validate } from "../middleware/validate";
 import { branchSchema } from "../validation/branchValidation";
+
 /**
  * @interface Branch
  * @description Represents a branch object
