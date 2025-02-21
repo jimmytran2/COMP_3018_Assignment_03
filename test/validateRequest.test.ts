@@ -30,7 +30,7 @@ describe("validateRequest Middleware", () => {
       department: "Finance",
       email: "jimmy@gmail.com",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     const middleware = validateRequest(employeeSchema);
@@ -96,7 +96,7 @@ describe("validateRequest Middleware", () => {
       department: "Finance",
       email: "jimmygmailcom",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     const middleware = validateRequest(employeeSchema);
@@ -120,7 +120,7 @@ describe("validateRequest Middleware", () => {
       department: "Finance",
       email: "jimmy@gmail.com",
       phone: "phone",
-      branch: 1,
+      branch: "1",
     };
 
     const middleware = validateRequest(employeeSchema);

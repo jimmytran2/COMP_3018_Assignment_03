@@ -8,13 +8,13 @@ import { Branch } from "src/api/v1/services/branchServices";
 describe("Validate function for employees", () => {
   it("should not throw an error for valid employee data", () => {
     const data: Employee = {
-      id: 1,
+      id: "1",
       name: "Jimmy",
       position: "Manager",
       department: "Finance",
       email: "jimmy@gmail.com",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).not.toThrow();
@@ -22,13 +22,13 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for empty name", () => {
     const data: Employee = {
-      id: 1,
+      id: "1",
       name: "",
       position: "Manager",
       department: "Finance",
       email: "jimmy@gmail.com",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -36,13 +36,13 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for empty position", () => {
     const data: Employee = {
-      id: 1,
+      id: "1",
       name: "Jimmy",
       position: "",
       department: "Finance",
       email: "jimmy@gmail.com",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -50,13 +50,13 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for empty department", () => {
     const data: Employee = {
-      id: 1,
+      id: "1",
       name: "Jimmy",
       position: "Manager",
       department: "",
       email: "jimmy@gmail.com",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -64,13 +64,13 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for empty email", () => {
     const data: Employee = {
-      id: 1,
+      id: "1",
       name: "Jimmy",
       position: "Manager",
       department: "Finance",
       email: "",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -78,13 +78,27 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for empty phone", () => {
     const data: Employee = {
-      id: 1,
+      id: "1",
       name: "Jimmy",
       position: "Manager",
       department: "Finance",
       email: "jimmy@gmail.com",
       phone: "",
-      branch: 1,
+      branch: "1",
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for empty branch", () => {
+    const data: Employee = {
+      id: "1",
+      name: "Jimmy",
+      position: "Manager",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      phone: "1234567890",
+      branch: "",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -92,12 +106,12 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for missing name", () => {
     const data: Partial<Employee> = {
-      id: 1,
+      id: "1",
       position: "Manager",
       department: "Finance",
       email: "jimmy@gmail.com",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -105,12 +119,12 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for missing position", () => {
     const data: Partial<Employee> = {
-      id: 1,
+      id: "1",
       name: "",
       department: "Finance",
       email: "jimmy@gmail.com",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -118,12 +132,12 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for missing department", () => {
     const data: Partial<Employee> = {
-      id: 1,
+      id: "1",
       name: "",
       position: "Manager",
       email: "jimmy@gmail.com",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -131,12 +145,12 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for missing email", () => {
     const data: Partial<Employee> = {
-      id: 1,
+      id: "1",
       name: "",
       position: "Manager",
       department: "Finance",
       phone: "1234567890",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -144,12 +158,12 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for missing phone", () => {
     const data: Partial<Employee> = {
-      id: 1,
+      id: "1",
       name: "",
       position: "Manager",
       department: "Finance",
       email: "jimmy@gmail.com",
-      branch: 1,
+      branch: "1",
     };
 
     expect(() => validate(employeeSchema, data)).toThrow();
@@ -157,20 +171,7 @@ describe("Validate function for employees", () => {
 
   it("should throw an error for missing branch", () => {
     const data: Partial<Employee> = {
-      id: 1,
-      name: "Jimmy",
-      position: "Manager",
-      department: "Finance",
-      email: "jimmy@gmail.com",
-      phone: "1234567890",
-    };
-
-    expect(() => validate(employeeSchema, data)).toThrow();
-  });
-
-  it("should throw an error for missing branch", () => {
-    const data: Partial<Employee> = {
-      id: 1,
+      id: "1",
       name: "Jimmy",
       position: "Manager",
       department: "Finance",
