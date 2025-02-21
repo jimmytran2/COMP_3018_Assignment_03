@@ -47,6 +47,19 @@ export const runTransaction = async <T>(
   }
 };
 
+/**
+ * Creates a new document in the specified collection.
+ *
+ * @template T - The type of data being stored
+ * @param collectionName - The name of the collection to create the document in
+ * @param data - The data to be stored in the document
+ * @param id - Optional custom document ID. If not provided, Firestore will auto-generate one
+ * @returns Promise resolving to the created document's ID
+ * @throws Error if document creation fails
+ *
+ * @example
+ * const docId = await createDocument('users', { name: 'John', age: 25 });
+ */
 export const createDocument = async <T>(
   collectionName: string,
   data: Partial<T>,
@@ -66,5 +79,25 @@ export const createDocument = async <T>(
   } catch (error: unknown) {
     console.error(`Transaction failed: ${error}`);
     throw new RepositoryError(`Transaction Failed`);
+  }
+};
+
+/**
+ * Retrieves all documents from a specified collection.
+ * Note: Be cautious with this function on large collections as it fetches all documents.
+ *
+ * @param collectionName - The name of the collection to retrieve documents from
+ * @returns Promise resolving to a QuerySnapshot containing all documents
+ * @throws Error if fetching documents fails
+ */
+export const getDocuments = async (
+  collectionName: string
+): Promise<FirebaseFirestore.QuerySnapshot> => {
+  try {
+    return await db.collection(collectionName).get();
+  } catch (error: unknown) {
+    throw new RepositoryError(
+      `Failed to fetch documents from ${collectionName}`
+    );
   }
 };
