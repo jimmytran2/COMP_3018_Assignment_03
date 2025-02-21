@@ -1,22 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+import {
+  ValidationError,
+  RepositoryError,
+  ServiceError,
+} from "../errors/error";
 import { errorResponse } from "../models/responseModel";
-
-/**
- * Extended Error interface that includes additional properties for HTTP status codes
- * and custom error codes. This allows for more detailed error handling and client responses.
- *
- * @property code - Custom error code for client-side error handling
- * @property statusCode - HTTP status code to be sent in the response
- *
- * @example
- * const error = new Error("User not found") as ExtendedError;
- * error.code = "USER_NOT_FOUND";
- * error.statusCode = 404;
- */
-interface ExtendedError extends Error {
-  code?: string;
-  statusCode?: number;
-}
 
 /**
  * Global error handling middleware for an Express application.
@@ -49,66 +37,41 @@ interface ExtendedError extends Error {
  * });
  */
 const errorHandler = (
-  err: ExtendedError,
+  err: Error | null,
   req: Request,
   res: Response,
   _next: NextFunction // Underscore prefix indicates this parameter is required but unused
 ): void => {
-  // Set default status code to 500 (Internal Server Error) if not specified
-  const statusCode: number = err.statusCode || 500;
-
-  // Use a default error code if none provided
-  // This helps with client-side error handling consistency
-  const code: string = err.code || "UNKNOWN_ERROR";
+  if (!err) {
+    console.error("Error: null or undefined error received");
+    res
+      .status(500)
+      .json(errorResponse("An unexpected error occurred", "UNKNOWN_ERROR"));
+    return;
+  }
 
   // Log the full error details for debugging
-  console.error(`Error: ${err.message} (Code: ${code})`);
+  console.error(`Error: ${err.message}`);
 
   // Send a sanitized error response to the client
   // We don't send the actual error message to avoid exposing sensitive details
-  if (err instanceof ValidationError || err instanceof ServiceError) {
+  if (
+    err instanceof ValidationError ||
+    err instanceof RepositoryError ||
+    err instanceof ServiceError
+  ) {
     res.status(err.statusCode).json(errorResponse(err.message, err.code));
   } else {
     // Generic error response for unhandled errors
     res
-      .status(statusCode)
+      .status(500)
       .json(
-        errorResponse("An unexpected error occurred. Please try again.", code)
+        errorResponse(
+          "An unexpected error occurred. Please try again.",
+          "UNKNOWN_ERROR"
+        )
       );
   }
 };
-
-// https://medium.com/@Nelsonalfonso/understanding-custom-errors-in-typescript-a-complete-guide-f47a1df9354c
-export class ValidationError extends Error {
-  code: string;
-  statusCode: number;
-
-  constructor(
-    message: string,
-    code: string = "VALIDATION_ERROR",
-    statusCode: number = 450
-  ) {
-    super(message);
-    this.name = "ValidationError";
-    this.code = code;
-    this.statusCode = statusCode;
-  }
-}
-
-export class ServiceError extends Error {
-  code: string;
-  statusCode: number;
-
-  constructor(
-    message: string,
-    code: string = "SERVICE_ERROR",
-    statusCode: number = 460
-  ) {
-    super(message);
-    this.name = "ServiceError";
-    this.code = code;
-    this.statusCode = statusCode;
-  }
-}
 
 export default errorHandler;

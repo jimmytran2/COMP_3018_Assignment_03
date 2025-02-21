@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
-import { ValidationError } from "./errorHandler";
+import { ValidationError } from "../errors/error";
 
 import { MiddlewareFunction, RequestData } from "../types/expressTypes";
 

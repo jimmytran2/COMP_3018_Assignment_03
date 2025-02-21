@@ -5,9 +5,7 @@
  */
 
 import { branchData } from "./branchData";
-import { ServiceError } from "../middleware/errorHandler";
-import { validate } from "../middleware/validate";
-import { branchSchema } from "../validation/branchValidation";
+import { ServiceError } from "../errors/error";
 
 /**
  * @interface Branch
@@ -35,7 +33,6 @@ export const createBranch = async (branch: {
   phone: string;
 }): Promise<Branch> => {
   try {
-    validate(branchSchema, branch);
     newBranchId++;
     const newBranch: Branch = { id: newBranchId, ...branch };
     branches.push(newBranch);

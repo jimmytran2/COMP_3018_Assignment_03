@@ -6,9 +6,7 @@
 
 import { employeeData } from "./employeeData";
 import { branchData } from "./branchData";
-import { ServiceError } from "../middleware/errorHandler";
-import { validate } from "../middleware/validate";
-import { employeeSchema } from "../validation/employeeValidation";
+import { ServiceError } from "../errors/error";
 
 /**
  * @interface Employee
