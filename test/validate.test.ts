@@ -19,6 +19,167 @@ describe("Validate function for employees", () => {
 
     expect(() => validate(employeeSchema, data)).not.toThrow();
   });
+
+  it("should throw an error for empty name", () => {
+    const data: Employee = {
+      id: 1,
+      name: "",
+      position: "Manager",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      phone: "1234567890",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for empty position", () => {
+    const data: Employee = {
+      id: 1,
+      name: "Jimmy",
+      position: "",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      phone: "1234567890",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for empty department", () => {
+    const data: Employee = {
+      id: 1,
+      name: "Jimmy",
+      position: "Manager",
+      department: "",
+      email: "jimmy@gmail.com",
+      phone: "1234567890",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for empty email", () => {
+    const data: Employee = {
+      id: 1,
+      name: "Jimmy",
+      position: "Manager",
+      department: "Finance",
+      email: "",
+      phone: "1234567890",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for empty phone", () => {
+    const data: Employee = {
+      id: 1,
+      name: "Jimmy",
+      position: "Manager",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      phone: "",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing name", () => {
+    const data: Partial<Employee> = {
+      id: 1,
+      position: "Manager",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      phone: "1234567890",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing position", () => {
+    const data: Partial<Employee> = {
+      id: 1,
+      name: "",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      phone: "1234567890",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing department", () => {
+    const data: Partial<Employee> = {
+      id: 1,
+      name: "",
+      position: "Manager",
+      email: "jimmy@gmail.com",
+      phone: "1234567890",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing email", () => {
+    const data: Partial<Employee> = {
+      id: 1,
+      name: "",
+      position: "Manager",
+      department: "Finance",
+      phone: "1234567890",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing phone", () => {
+    const data: Partial<Employee> = {
+      id: 1,
+      name: "",
+      position: "Manager",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      branch: 1,
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing branch", () => {
+    const data: Partial<Employee> = {
+      id: 1,
+      name: "Jimmy",
+      position: "Manager",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      phone: "1234567890",
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing branch", () => {
+    const data: Partial<Employee> = {
+      id: 1,
+      name: "Jimmy",
+      position: "Manager",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      phone: "1234567890",
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
 });
 
 describe("Validate function for branches", () => {
