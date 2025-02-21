@@ -6,7 +6,7 @@ export const employeeSchema: ObjectSchema = Joi.object({
   id: Joi.number().integer().min(0).optional().messages({
     "number.base": "ID must be a number",
     "number.integer": "ID must be an integer",
-    "number.min": "ID must be a postitive number",
+    "number.min": "ID must be a positive number",
   }),
   name: Joi.string().required().messages({
     "any.required": "Name is required",
