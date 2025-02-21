@@ -61,7 +61,7 @@ export const getEmployeeById = async (
 ): Promise<void> => {
   try {
     const employee: Employee = await employeeService.getEmployeeById(
-      Number(req.params.id)
+      req.params.id
     );
     res.status(200).json(successResponse(employee, "Employee retrieved"));
   } catch (error) {
@@ -81,7 +81,7 @@ export const updateEmployee = async (
 ): Promise<void> => {
   try {
     const updatedEmployee: Employee = await employeeService.updateEmployee(
-      Number(req.params.id),
+      req.params.id,
       req.body
     );
 
@@ -102,7 +102,7 @@ export const deleteEmployee = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    await employeeService.deleteEmployee(Number(req.params.id));
+    await employeeService.deleteEmployee(req.params.id);
     res.status(200).json(successResponse({ message: "Employee deleted" }));
   } catch (error) {
     next(error);
@@ -121,7 +121,7 @@ export const getEmployeeByBranch = async (
 ): Promise<void> => {
   try {
     const employees: Employee[] = await employeeService.getEmployeeByBranch(
-      Number(req.params.branch)
+      req.params.branch
     );
     res
       .status(200)
