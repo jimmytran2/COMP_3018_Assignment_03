@@ -130,7 +130,7 @@ export const getDocumentById = async (
       throw new RepositoryError(
         `Document not found in collection ${collectionName} with id ${id}`,
         "DOCUMENT_NOT_FOUND",
-        550
+        551
       );
     }
 
@@ -169,6 +169,48 @@ export const updateDocument = async <T>(
   } catch (error: unknown) {
     throw new RepositoryError(
       `Failed to update document ${id} in ${collectionName}`
+    );
+  }
+};
+
+/**
+ * Deletes a specific document from a collection.
+ * Can be used both with and without a transaction.
+ *
+ * @param collectionName - The name of the collection containing the document
+ * @param id - The ID of the document to delete
+ * @param transaction - Optional transaction object for atomic operations
+ * @throws Error if deleting the document fails
+ *
+ * @example
+ * // Simple delete
+ * await deleteDocument('users', 'userId');
+ *
+ * // Delete within a transaction
+ * await runTransaction(async (transaction) => {
+ *   await deleteDocument('users', 'userId', transaction);
+ * });
+ */
+export const deleteDocument = async (
+  collectionName: string,
+  id: string,
+  transaction?: FirebaseFirestore.Transaction
+): Promise<void> => {
+  try {
+    const docRef: FirebaseFirestore.DocumentReference = db
+      .collection(collectionName)
+      .doc(id);
+
+    // If transaction is provided, use it for atomic operations
+    // Otherwise, perform a regular delete
+    if (transaction) {
+      transaction.delete(docRef);
+    } else {
+      await docRef.delete();
+    }
+  } catch (error: unknown) {
+    throw new RepositoryError(
+      `Failed to delete document ${id} from ${collectionName}`
     );
   }
 };
