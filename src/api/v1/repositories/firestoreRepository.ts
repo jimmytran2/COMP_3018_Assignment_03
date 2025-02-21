@@ -145,3 +145,30 @@ export const getDocumentById = async (
     );
   }
 };
+
+/**
+ * Updates a specific document in a collection with new data.
+ * Only the fields specified in the data parameter will be updated.
+ *
+ * @template T - The type of the document data
+ * @param collectionName - The name of the collection containing the document
+ * @param id - The ID of the document to update
+ * @param data - Partial data to update in the document
+ * @throws Error if updating the document fails
+ *
+ * @example
+ * await updateDocument('users', 'userId', { age: 26, lastUpdated: new Date() });
+ */
+export const updateDocument = async <T>(
+  collectionName: string,
+  id: string,
+  data: Partial<T>
+): Promise<void> => {
+  try {
+    await db.collection(collectionName).doc(id).update(data);
+  } catch (error: unknown) {
+    throw new RepositoryError(
+      `Failed to update document ${id} in ${collectionName}`
+    );
+  }
+};
