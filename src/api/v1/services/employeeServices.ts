@@ -4,9 +4,9 @@
  * This file defines functions for managing employee data.
  */
 
-import { employeeData } from "./employeeData";
-import { branchData } from "./branchData";
-import { ServiceError } from "../errors/error";
+// import { employeeData } from "./employeeData";
+// import { branchData } from "./branchData";
+// import { ServiceError } from "../errors/error";
 import {
   createDocument,
   getDocuments,
@@ -15,7 +15,6 @@ import {
   updateDocument,
   deleteDocument,
 } from "../repositories/firestoreRepository";
-import { create } from "domain";
 
 const COLLECTION = "employees";
 
@@ -32,10 +31,6 @@ export type Employee = {
   phone: string;
   branch: string;
 };
-
-// Uses sample employee data from employeeData.ts
-// const employees: Employee[] = [...employeeData];
-// let newEmployeeId: number = employees.length;
 
 /**
  * @description Create a new employee
@@ -105,10 +100,6 @@ export const deleteEmployee = async (id: string): Promise<void> => {
   await deleteDocument(COLLECTION, id);
 };
 
-/**
- * Array filter method
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
- */
 /**
  * @description Gets employees from a branch
  * @param {string} branchId - a unique id for a branch

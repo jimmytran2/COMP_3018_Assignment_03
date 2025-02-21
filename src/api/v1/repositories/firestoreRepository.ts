@@ -14,11 +14,6 @@ type FirestoreDataTypes =
   | Timestamp
   | FieldValue;
 
-interface FieldValuePair {
-  fieldName: string;
-  fieldValue: FirestoreDataTypes;
-}
-
 /**
  * Executes a Firestore transaction with provided operations.
  * Transactions in Firestore allow you to perform multiple operations atomically.
