@@ -101,3 +101,47 @@ export const getDocuments = async (
     );
   }
 };
+
+/**
+ * Retrieves a specific document by its ID from a collection.
+ *
+ * @param collectionName - The name of the collection containing the document
+ * @param id - The ID of the document to retrieve
+ * @returns Promise resolving to a DocumentSnapshot
+ * @throws Error if fetching the document fails
+ *
+ * @example
+ * const doc = await getDocumentsById('users', 'userId');
+ * if (doc.exists) {
+ *   const userData = doc.data();
+ * }
+ */
+export const getDocumentById = async (
+  collectionName: string,
+  id: string
+): Promise<FirebaseFirestore.DocumentSnapshot> => {
+  try {
+    const doc: FirebaseFirestore.DocumentSnapshot = await db
+      .collection(collectionName)
+      .doc(id)
+      .get();
+
+    if (!doc.exists) {
+      throw new RepositoryError(
+        `Document not found in collection ${collectionName} with id ${id}`,
+        "DOCUMENT_NOT_FOUND",
+        550
+      );
+    }
+
+    return doc;
+  } catch (error: unknown) {
+    if (error instanceof RepositoryError) {
+      throw error;
+    }
+
+    throw new RepositoryError(
+      `Failed to fetch document ${id} from ${collectionName}`
+    );
+  }
+};
