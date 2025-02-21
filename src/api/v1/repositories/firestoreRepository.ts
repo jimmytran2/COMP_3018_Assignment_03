@@ -1,4 +1,4 @@
-import db from "config/firebaseConfig";
+import db from "../../../../config/firebaseConfig";
 import { FieldValue, Timestamp } from "firebase-admin/firestore";
 import { RepositoryError } from "../errors/error";
 
@@ -42,7 +42,29 @@ export const runTransaction = async <T>(
   try {
     return await db.runTransaction(operations);
   } catch (error: unknown) {
-    console.log(`Transaction failed: ${error}`);
+    console.error(`Transaction failed: ${error}`);
+    throw new RepositoryError(`Transaction Failed`);
+  }
+};
+
+export const createDocument = async <T>(
+  collectionName: string,
+  data: Partial<T>,
+  id?: string
+): Promise<string> => {
+  try {
+    let docRef: FirebaseFirestore.DocumentReference;
+
+    if (id) {
+      docRef = db.collection(collectionName).doc(id);
+      await docRef.set(data);
+    } else {
+      docRef = await db.collection(collectionName).add(data);
+    }
+
+    return docRef.id;
+  } catch (error: unknown) {
+    console.error(`Transaction failed: ${error}`);
     throw new RepositoryError(`Transaction Failed`);
   }
 };
