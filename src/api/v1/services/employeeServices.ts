@@ -35,6 +35,7 @@ export type Employee = {
  * @description Create a new employee
  * @param {Partial<Employee>} employee data
  * @returns {Promise<Employee>} promise that is resolved to the employee thats created
+ * @throws {ServiceError} - unable to create employee
  */
 export const createEmployee = async (
   employee: Partial<Employee>
@@ -50,6 +51,7 @@ export const createEmployee = async (
 /**
  * @description Gets all employees
  * @returns {Promise<Employee[]>} promise that is resolved to all employees that are retrieved
+ * @throws {ServiceError} - unable to retrieve employees
  */
 export const getAllEmployees = async (): Promise<Employee[]> => {
   try {
@@ -123,8 +125,7 @@ export const deleteEmployee = async (id: string): Promise<void> => {
  * @description Gets employees from a branch
  * @param {string} branchId - a unique id for a branch
  * @returns {Promise<Employee[]>} promise that is resolved to an array of the employees from the branch that are retrieved
- * @throws {Error} branch id is not found
- * @throws {Error} no employees associated with branch
+ * @throws {ServiceError} no employees associated with branch
  */
 export const getEmployeeByBranch = async (
   branchId: string
@@ -148,8 +149,7 @@ export const getEmployeeByBranch = async (
  * @description Gets employees from a department
  * @param {string} department - name of the department
  * @returns {Promise<Employee[]>} promise that is resolved to an array of the employees from a department are retrieved
- * @throws {Error} department does not exist
- * @throws {Error} no employees in that department
+ * @throws {ServiceError} no employees associated with that department
  */
 export const getEmployeeByDepartment = async (
   department: string

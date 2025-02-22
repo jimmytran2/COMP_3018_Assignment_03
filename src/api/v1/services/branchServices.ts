@@ -4,9 +4,6 @@
  * This file defines functions for managing branch data.
  */
 
-// import { branchData } from "./branchData";
-// import { ServiceError } from "../errors/error";
-
 import {
   createDocument,
   getDocuments,
@@ -35,6 +32,7 @@ export type Branch = {
  * @description Create a new branch
  * @param {Partial<Branch>} branch - branch data
  * @returns {Promise<Branch>} promise that is resolved to the branch that is created
+ * @throws {ServiceError} - unable to create branch
  */
 export const createBranch = async (
   branch: Partial<Branch>
@@ -50,6 +48,7 @@ export const createBranch = async (
 /**
  * @description Gets all branches
  * @returns {Promise<Branch[]>} promise that is resolved to all branches that are retrieved
+ * @throws {ServiceError} - unable to retrieve branches
  */
 export const getAllBranches = async (): Promise<Branch[]> => {
   try {
@@ -109,7 +108,7 @@ export const updateBranch = async (
  * @description Deletes an existing branch
  * @param {string} id - a unique id for a branch
  * @returns {Promise<void>}
- * @throws {Error} branch id is not found
+ * @throws {Error} unable to delete branch
  */
 export const deleteBranch = async (id: string): Promise<void> => {
   try {
