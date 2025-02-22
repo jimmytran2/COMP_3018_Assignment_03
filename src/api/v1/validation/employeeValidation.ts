@@ -4,6 +4,7 @@ import Joi, { ObjectSchema } from "joi";
 
 export const employeeSchema: ObjectSchema = Joi.object({
   id: Joi.string().optional().messages({
+    "any.required": "ID is required",
     "string.empty": "ID cannot be empty",
   }),
   name: Joi.string().required().messages({
