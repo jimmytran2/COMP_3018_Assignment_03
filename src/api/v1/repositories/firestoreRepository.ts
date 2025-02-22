@@ -184,7 +184,7 @@ export const getDocumentsByFieldValue = async (
           fieldValue
         )}`,
         "DOCUMENTS_NOT_FOUND",
-        404
+        551
       );
     }
 

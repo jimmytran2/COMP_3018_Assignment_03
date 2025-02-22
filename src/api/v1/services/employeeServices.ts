@@ -4,9 +4,6 @@
  * This file defines functions for managing employee data.
  */
 
-// import { employeeData } from "./employeeData";
-// import { branchData } from "./branchData";
-// import { ServiceError } from "../errors/error";
 import {
   createDocument,
   getDocuments,
@@ -15,6 +12,8 @@ import {
   updateDocument,
   deleteDocument,
 } from "../repositories/firestoreRepository";
+
+import { ServiceError } from "../errors/error";
 
 const COLLECTION = "employees";
 
@@ -40,8 +39,12 @@ export type Employee = {
 export const createEmployee = async (
   employee: Partial<Employee>
 ): Promise<Employee> => {
-  const id: string = await createDocument(COLLECTION, employee);
-  return { id, ...employee } as Employee;
+  try {
+    const id: string = await createDocument(COLLECTION, employee);
+    return { id, ...employee } as Employee;
+  } catch (error) {
+    throw new ServiceError("Could not create employee");
+  }
 };
 
 /**
@@ -49,14 +52,18 @@ export const createEmployee = async (
  * @returns {Promise<Employee[]>} promise that is resolved to all employees that are retrieved
  */
 export const getAllEmployees = async (): Promise<Employee[]> => {
-  const snapshot: FirebaseFirestore.QuerySnapshot = await getDocuments(
-    COLLECTION
-  );
+  try {
+    const snapshot: FirebaseFirestore.QuerySnapshot = await getDocuments(
+      COLLECTION
+    );
 
-  return snapshot.docs.map((doc) => {
-    const data: FirebaseFirestore.DocumentData = doc.data();
-    return { id: doc.id, ...data } as Employee;
-  });
+    return snapshot.docs.map((doc) => {
+      const data: FirebaseFirestore.DocumentData = doc.data();
+      return { id: doc.id, ...data } as Employee;
+    });
+  } catch (error) {
+    throw new ServiceError("Could not retrieve employees");
+  }
 };
 
 /**
@@ -66,13 +73,17 @@ export const getAllEmployees = async (): Promise<Employee[]> => {
  * @throws {Error} employee id is not found
  */
 export const getEmployeeById = async (id: string): Promise<Employee> => {
-  const snapshot: FirebaseFirestore.DocumentSnapshot = await getDocumentById(
-    COLLECTION,
-    id
-  );
+  try {
+    const snapshot: FirebaseFirestore.DocumentSnapshot = await getDocumentById(
+      COLLECTION,
+      id
+    );
 
-  const data = snapshot.data();
-  return data as Employee;
+    const data = snapshot.data();
+    return data as Employee;
+  } catch (error) {
+    throw new ServiceError(`Could not retrieve employee with id: ${id}`);
+  }
 };
 
 /**
@@ -86,8 +97,12 @@ export const updateEmployee = async (
   id: string,
   employee: Partial<Employee>
 ): Promise<Employee> => {
-  await updateDocument(COLLECTION, id, employee);
-  return { id, ...employee } as Employee;
+  try {
+    await updateDocument(COLLECTION, id, employee);
+    return { id, ...employee } as Employee;
+  } catch (error) {
+    throw new ServiceError(`Unable to update employee with id: ${id}`);
+  }
 };
 
 /**
@@ -97,7 +112,11 @@ export const updateEmployee = async (
  * @throws {Error} employee id is not found
  */
 export const deleteEmployee = async (id: string): Promise<void> => {
-  await deleteDocument(COLLECTION, id);
+  try {
+    await deleteDocument(COLLECTION, id);
+  } catch (error) {
+    throw new ServiceError(`Unable to delete employee with id: ${id}`);
+  }
 };
 
 /**
@@ -110,13 +129,19 @@ export const deleteEmployee = async (id: string): Promise<void> => {
 export const getEmployeeByBranch = async (
   branchId: string
 ): Promise<Employee[]> => {
-  const snapshot: FirebaseFirestore.QuerySnapshot =
-    await getDocumentsByFieldValue(COLLECTION, "branch", branchId);
+  try {
+    const snapshot: FirebaseFirestore.QuerySnapshot =
+      await getDocumentsByFieldValue(COLLECTION, "branch", branchId);
 
-  return snapshot.docs.map((doc) => {
-    const data: FirebaseFirestore.DocumentData = doc.data();
-    return { id: doc.id, ...data } as Employee;
-  });
+    return snapshot.docs.map((doc) => {
+      const data: FirebaseFirestore.DocumentData = doc.data();
+      return { id: doc.id, ...data } as Employee;
+    });
+  } catch (error) {
+    throw new ServiceError(
+      `Could not retrieve employees from branch ${branchId}`
+    );
+  }
 };
 
 /**
@@ -129,11 +154,17 @@ export const getEmployeeByBranch = async (
 export const getEmployeeByDepartment = async (
   department: string
 ): Promise<Employee[]> => {
-  const snapshot: FirebaseFirestore.QuerySnapshot =
-    await getDocumentsByFieldValue(COLLECTION, "department", department);
+  try {
+    const snapshot: FirebaseFirestore.QuerySnapshot =
+      await getDocumentsByFieldValue(COLLECTION, "department", department);
 
-  return snapshot.docs.map((doc) => {
-    const data: FirebaseFirestore.DocumentData = doc.data();
-    return { id: doc.id, ...data } as Employee;
-  });
+    return snapshot.docs.map((doc) => {
+      const data: FirebaseFirestore.DocumentData = doc.data();
+      return { id: doc.id, ...data } as Employee;
+    });
+  } catch (error) {
+    throw new ServiceError(
+      `Could not retrieve employees from ${department} department`
+    );
+  }
 };

@@ -16,6 +16,8 @@ import {
   deleteDocument,
 } from "../repositories/firestoreRepository";
 
+import { ServiceError } from "../errors/error";
+
 const COLLECTION = "branches";
 
 /**
@@ -37,8 +39,12 @@ export type Branch = {
 export const createBranch = async (
   branch: Partial<Branch>
 ): Promise<Branch> => {
-  const id: string = await createDocument(COLLECTION, branch);
-  return { id, ...branch } as Branch;
+  try {
+    const id: string = await createDocument(COLLECTION, branch);
+    return { id, ...branch } as Branch;
+  } catch (error) {
+    throw new ServiceError("Could not create branch");
+  }
 };
 
 /**
@@ -46,14 +52,18 @@ export const createBranch = async (
  * @returns {Promise<Branch[]>} promise that is resolved to all branches that are retrieved
  */
 export const getAllBranches = async (): Promise<Branch[]> => {
-  const snapshot: FirebaseFirestore.QuerySnapshot = await getDocuments(
-    COLLECTION
-  );
+  try {
+    const snapshot: FirebaseFirestore.QuerySnapshot = await getDocuments(
+      COLLECTION
+    );
 
-  return snapshot.docs.map((doc) => {
-    const data: FirebaseFirestore.DocumentData = doc.data();
-    return { id: doc.id, ...data } as Branch;
-  });
+    return snapshot.docs.map((doc) => {
+      const data: FirebaseFirestore.DocumentData = doc.data();
+      return { id: doc.id, ...data } as Branch;
+    });
+  } catch (error) {
+    throw new ServiceError("Could not retrieve branches");
+  }
 };
 
 /**
@@ -63,13 +73,17 @@ export const getAllBranches = async (): Promise<Branch[]> => {
  * @throws {Error} branch id is not found
  */
 export const getBranchById = async (id: string): Promise<Branch> => {
-  const snapshot: FirebaseFirestore.DocumentSnapshot = await getDocumentById(
-    COLLECTION,
-    id
-  );
+  try {
+    const snapshot: FirebaseFirestore.DocumentSnapshot = await getDocumentById(
+      COLLECTION,
+      id
+    );
 
-  const data = snapshot.data();
-  return data as Branch;
+    const data = snapshot.data();
+    return data as Branch;
+  } catch (error) {
+    throw new ServiceError(`Could not retrieve branch with id: ${id}`);
+  }
 };
 
 /**
@@ -87,7 +101,7 @@ export const updateBranch = async (
     await updateDocument(COLLECTION, id, branch);
     return { id, ...branch } as Branch;
   } catch (error) {
-    throw new Error("Unable to update branch bruh");
+    throw new ServiceError(`Unable to update branch with id: ${id}`);
   }
 };
 
@@ -98,5 +112,9 @@ export const updateBranch = async (
  * @throws {Error} branch id is not found
  */
 export const deleteBranch = async (id: string): Promise<void> => {
-  await deleteDocument(COLLECTION, id);
+  try {
+    await deleteDocument(COLLECTION, id);
+  } catch (error) {
+    throw new ServiceError(`Unable to delete branch with id: ${id}`);
+  }
 };
