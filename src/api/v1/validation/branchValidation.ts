@@ -22,3 +22,10 @@ export const branchSchema: ObjectSchema = Joi.object({
       "string.empty": "Phone number cannot be empty",
     }),
 });
+
+export const deleteBranchSchema: ObjectSchema = Joi.object({
+  id: Joi.string().required().messages({
+    "any.required": "ID is required",
+    "string.empty": "ID cannot be empty",
+  }),
+});

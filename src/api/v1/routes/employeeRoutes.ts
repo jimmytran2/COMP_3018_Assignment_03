@@ -9,7 +9,10 @@
 import express, { Router } from "express";
 import * as employeeController from "../controllers/employeeControllers";
 import { validateRequest } from "../middleware/validate";
-import { employeeSchema } from "../validation/employeeValidation";
+import {
+  employeeSchema,
+  deleteEmployeeSchema,
+} from "../validation/employeeValidation";
 
 const router: Router = express.Router();
 
@@ -149,7 +152,11 @@ router.put(
  *       200:
  *         description: employee deleted
  */
-router.delete("/:id", employeeController.deleteEmployee);
+router.delete(
+  "/:id",
+  validateRequest(deleteEmployeeSchema),
+  employeeController.deleteEmployee
+);
 
 /**
  * @route GET /branches/:branch

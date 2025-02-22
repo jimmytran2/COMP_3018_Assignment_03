@@ -44,3 +44,10 @@ export const employeeSchema: ObjectSchema = Joi.object({
     "string.empty": "Branch ID cannot be empty",
   }),
 });
+
+export const deleteEmployeeSchema: ObjectSchema = Joi.object({
+  id: Joi.string().required().messages({
+    "any.required": "ID is required",
+    "string.empty": "ID cannot be empty",
+  }),
+});

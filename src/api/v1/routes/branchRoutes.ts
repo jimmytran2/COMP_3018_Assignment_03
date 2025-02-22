@@ -9,7 +9,10 @@
 import express, { Router } from "express";
 import * as branchController from "../controllers/branchControllers";
 import { validateRequest } from "../middleware/validate";
-import { branchSchema } from "../validation/branchValidation";
+import {
+  branchSchema,
+  deleteBranchSchema,
+} from "../validation/branchValidation";
 
 const router: Router = express.Router();
 
@@ -136,6 +139,10 @@ router.put(
  *       200:
  *         description: branch deleted
  */
-router.delete("/:id", branchController.deleteBranch);
+router.delete(
+  "/:id",
+  validateRequest(deleteBranchSchema),
+  branchController.deleteBranch
+);
 
 export default router;
