@@ -83,8 +83,12 @@ export const updateBranch = async (
   id: string,
   branch: Partial<Branch>
 ): Promise<Branch> => {
-  await updateDocument(COLLECTION, id, branch);
-  return { id, ...branch } as Branch;
+  try {
+    await updateDocument(COLLECTION, id, branch);
+    return { id, ...branch } as Branch;
+  } catch (error) {
+    throw new Error("Unable to update branch bruh");
+  }
 };
 
 /**
