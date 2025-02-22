@@ -17,7 +17,7 @@ export class ValidationError extends Error {
   constructor(
     message: string,
     code: string = "VALIDATION_ERROR",
-    statusCode: number = 450
+    statusCode: number = 400
   ) {
     super(message);
     this.name = "ValidationError";
@@ -43,7 +43,7 @@ export class RepositoryError extends Error {
   constructor(
     message: string,
     code: string = "REPOSITORY_ERROR",
-    statusCode: number = 550
+    statusCode: number = 500
   ) {
     super(message);
     this.name = "RepositoryError";
@@ -70,7 +70,7 @@ export class ServiceError extends Error {
   constructor(
     message: string,
     code: string = "SERVICE_ERROR",
-    statusCode: number = 650
+    statusCode: number = 500
   ) {
     super(message);
     this.name = "ServiceError";

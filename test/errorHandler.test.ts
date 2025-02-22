@@ -30,7 +30,7 @@ describe("Error Handler Middleware", () => {
 
     errorHandler(testError, mockReq as Request, mockRes as Response, mockNext);
 
-    expect(mockRes.status).toHaveBeenCalledWith(450);
+    expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith(
       errorResponse("Could not be validated", "VALIDATION_ERROR")
     );
@@ -41,7 +41,7 @@ describe("Error Handler Middleware", () => {
 
     errorHandler(testError, mockReq as Request, mockRes as Response, mockNext);
 
-    expect(mockRes.status).toHaveBeenCalledWith(550);
+    expect(mockRes.status).toHaveBeenCalledWith(500);
     expect(mockRes.json).toHaveBeenCalledWith(
       errorResponse("Document not found", "REPOSITORY_ERROR")
     );
@@ -52,7 +52,7 @@ describe("Error Handler Middleware", () => {
 
     errorHandler(testError, mockReq as Request, mockRes as Response, mockNext);
 
-    expect(mockRes.status).toHaveBeenCalledWith(650);
+    expect(mockRes.status).toHaveBeenCalledWith(500);
     expect(mockRes.json).toHaveBeenCalledWith(
       errorResponse("Invalid input", "SERVICE_ERROR")
     );

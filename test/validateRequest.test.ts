@@ -62,7 +62,7 @@ describe("validateRequest Middleware", () => {
     middleware(mockReq as Request, mockRes as Response, mockNext);
 
     // Assert
-    expect(mockRes.status).toHaveBeenCalledWith(450);
+    expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: expect.stringContaining("Validation error"),
     });
@@ -81,7 +81,7 @@ describe("validateRequest Middleware", () => {
     middleware(mockReq as Request, mockRes as Response, mockNext);
 
     // Assert
-    expect(mockRes.status).toHaveBeenCalledWith(450);
+    expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: expect.stringContaining("Validation error"),
     });
@@ -105,7 +105,7 @@ describe("validateRequest Middleware", () => {
     middleware(mockReq as Request, mockRes as Response, mockNext);
 
     // Assert
-    expect(mockRes.status).toHaveBeenCalledWith(450);
+    expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: expect.stringContaining("Validation error"),
     });
@@ -129,7 +129,7 @@ describe("validateRequest Middleware", () => {
     middleware(mockReq as Request, mockRes as Response, mockNext);
 
     // Assert
-    expect(mockRes.status).toHaveBeenCalledWith(450);
+    expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: expect.stringContaining("Validation error"),
     });
@@ -167,7 +167,7 @@ describe("validateRequest Middleware", () => {
     middleware(mockReq as Request, mockRes as Response, mockNext);
 
     // Assert
-    expect(mockRes.status).toHaveBeenCalledWith(450);
+    expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: expect.stringContaining("Validation error"),
     });
@@ -183,7 +183,7 @@ describe("validateRequest Middleware", () => {
     middleware(mockReq as Request, mockRes as Response, mockNext);
 
     // Assert
-    expect(mockRes.status).toHaveBeenCalledWith(450);
+    expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: expect.stringContaining("Validation error"),
     });
@@ -203,7 +203,7 @@ describe("validateRequest Middleware", () => {
     middleware(mockReq as Request, mockRes as Response, mockNext);
 
     // Assert
-    expect(mockRes.status).toHaveBeenCalledWith(450);
+    expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: expect.stringContaining("Validation error"),
     });
