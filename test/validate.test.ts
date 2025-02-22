@@ -181,6 +181,34 @@ describe("Validate function for employees", () => {
 
     expect(() => validate(employeeSchema, data)).toThrow();
   });
+
+  it("should throw an error for wrong format email", () => {
+    const data: Employee = {
+      id: "1",
+      name: "Jimmy",
+      position: "Manager",
+      department: "Finance",
+      email: "jimmy@gmailcom",
+      phone: "1234567890",
+      branch: "1",
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
+
+  it("should throw an error for wrong format number", () => {
+    const data: Employee = {
+      id: "1",
+      name: "Jimmy",
+      position: "Manager",
+      department: "Finance",
+      email: "jimmy@gmail.com",
+      phone: "1234567890123123123",
+      branch: "1",
+    };
+
+    expect(() => validate(employeeSchema, data)).toThrow();
+  });
 });
 
 describe("Validate function for branches", () => {
@@ -193,5 +221,79 @@ describe("Validate function for branches", () => {
     };
 
     expect(() => validate(branchSchema, data)).not.toThrow();
+  });
+
+  it("should throw an error for empty name", () => {
+    const data: Branch = {
+      id: "1",
+      name: "",
+      address: "123 Street St",
+      phone: "1234567890",
+    };
+
+    expect(() => validate(branchSchema, data)).toThrow();
+  });
+
+  it("should throw an error for empty address", () => {
+    const data: Branch = {
+      id: "1",
+      name: "Winnipeg Branch",
+      address: "",
+      phone: "1234567890",
+    };
+
+    expect(() => validate(branchSchema, data)).toThrow();
+  });
+
+  it("should throw an error for empty phone", () => {
+    const data: Branch = {
+      id: "1",
+      name: "Winnipeg Branch",
+      address: "123 Street St",
+      phone: "",
+    };
+
+    expect(() => validate(branchSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing name", () => {
+    const data: Partial<Branch> = {
+      id: "1",
+      address: "123 Street St",
+      phone: "1234567890",
+    };
+
+    expect(() => validate(branchSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing address", () => {
+    const data: Partial<Branch> = {
+      id: "1",
+      name: "Winnipeg Branch",
+      phone: "1234567890",
+    };
+
+    expect(() => validate(branchSchema, data)).toThrow();
+  });
+
+  it("should throw an error for missing phone", () => {
+    const data: Partial<Branch> = {
+      id: "1",
+      name: "Winnipeg Branch",
+      address: "123 Street St",
+    };
+
+    expect(() => validate(branchSchema, data)).toThrow();
+  });
+
+  it("should throw an error for wrong phone format", () => {
+    const data: Branch = {
+      id: "1",
+      name: "Winnipeg Branch",
+      address: "123 Street St",
+      phone: "123123123123",
+    };
+
+    expect(() => validate(branchSchema, data)).toThrow();
   });
 });

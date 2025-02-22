@@ -23,7 +23,6 @@ export class ValidationError extends Error {
     this.name = "ValidationError";
     this.code = code;
     this.statusCode = statusCode;
-    Object.setPrototypeOf(this, ValidationError.prototype);
   }
 }
 
@@ -77,6 +76,5 @@ export class ServiceError extends Error {
     this.name = "ServiceError";
     this.code = code;
     this.statusCode = statusCode;
-    Object.setPrototypeOf(this, ServiceError.prototype);
   }
 }
