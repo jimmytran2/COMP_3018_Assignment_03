@@ -37,7 +37,6 @@ export const runTransaction = async <T>(
   try {
     return await db.runTransaction(operations);
   } catch (error: unknown) {
-    console.error(`Transaction failed: ${error}`);
     throw new RepositoryError(`Transaction Failed`);
   }
 };
@@ -72,7 +71,6 @@ export const createDocument = async <T>(
 
     return docRef.id;
   } catch (error: unknown) {
-    console.error(`Transaction failed: ${error}`);
     throw new RepositoryError(`Transaction Failed`);
   }
 };
