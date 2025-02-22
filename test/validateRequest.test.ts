@@ -136,7 +136,7 @@ describe("validateRequest Middleware", () => {
     expect(mockNext).not.toHaveBeenCalled();
   });
 
-  it("should should for valid inputs for branchSchema", () => {
+  it("should pass for valid inputs for branchSchema", () => {
     // Arrange
     mockReq.body = {
       name: "Winnipeg Branch",
@@ -154,7 +154,7 @@ describe("validateRequest Middleware", () => {
     expect(mockRes.json).not.toHaveBeenCalled();
   });
 
-  it("should should for empty inputs for branchSchema", () => {
+  it("should fail for empty inputs for branchSchema", () => {
     // Arrange
     mockReq.body = {
       name: "",
@@ -174,7 +174,7 @@ describe("validateRequest Middleware", () => {
     expect(mockNext).not.toHaveBeenCalled();
   });
 
-  it("should should for missing inputs for branchSchema", () => {
+  it("should fail for missing inputs for branchSchema", () => {
     // Arrange
     mockReq.body = {};
     const middleware = validateRequest(branchSchema);
@@ -190,7 +190,7 @@ describe("validateRequest Middleware", () => {
     expect(mockNext).not.toHaveBeenCalled();
   });
 
-  it("should should for invalid phone number format", () => {
+  it("should fail for invalid phone number format", () => {
     // Arrange
     mockReq.body = {
       name: "Winnipeg Branch",
