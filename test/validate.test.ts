@@ -186,7 +186,7 @@ describe("Validate function for employees", () => {
 describe("Validate function for branches", () => {
   it("should not throw an error for valid branch data", () => {
     const data: Branch = {
-      id: 1,
+      id: "1",
       name: "Winnipeg Branch",
       address: "123 Street St",
       phone: "1234567890",

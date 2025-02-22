@@ -58,9 +58,7 @@ export const getBranchById = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const branch: Branch = await branchService.getBranchById(
-      Number(req.params.id)
-    );
+    const branch: Branch = await branchService.getBranchById(req.params.id);
     res.status(200).json(successResponse(branch, "Branch retrieved"));
   } catch (error) {
     next(error);
@@ -79,7 +77,7 @@ export const updateBranch = async (
 ): Promise<void> => {
   try {
     const updatedBranch: Branch = await branchService.updateBranch(
-      Number(req.params.id),
+      req.params.id,
       req.body
     );
 
@@ -100,7 +98,7 @@ export const deleteBranch = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    await branchService.deleteBranch(Number(req.params.id));
+    await branchService.deleteBranch(req.params.id);
     res.status(200).json(successResponse({ message: "Branch deleted" }));
   } catch (error) {
     next(error);

@@ -21,7 +21,7 @@ describe("Branch Controller", () => {
   describe("createBranch", () => {
     it("should handle a succesful operation", async () => {
       const mockBranch: Branch = {
-        id: 1,
+        id: "1",
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
         phone: "604-456-0022",
@@ -46,7 +46,7 @@ describe("Branch Controller", () => {
     it("should handle a successful operation", async () => {
       const mockBranch: Branch[] = [
         {
-          id: 1,
+          id: "1",
           name: "Vancouver Branch",
           address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
           phone: "604-456-0022",
@@ -71,7 +71,7 @@ describe("Branch Controller", () => {
   describe("getBranchById", () => {
     it("should handle a successful operation", async () => {
       const mockBranch: Branch = {
-        id: 1,
+        id: "1",
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
         phone: "604-456-0022",
@@ -95,7 +95,7 @@ describe("Branch Controller", () => {
   describe("updateBranch", () => {
     it("should handle a successful operation", async () => {
       const mockBranch: Branch = {
-        id: 1,
+        id: "1",
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
         phone: "604-456-0022",
