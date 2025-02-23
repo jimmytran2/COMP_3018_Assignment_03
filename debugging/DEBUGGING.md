@@ -1,74 +1,59 @@
 # Debugging Analysis
 
-## Scenario 1: newEmployee creation
+## Scenario 1: employee Schema Validation
 
-- **Breakpoint Location:** employeeServices.ts - line 43
-- **Objective:** Check if the newEmployee being created is assigned the correct property values, before being pushed to the array of employees
-
-### Debugger Observations
-
-- **Variable States:** newEmployee: contains data from request {id: 1, name: jimmy, position: manager, department: finance,
-  email: jimmy@gmail.com, phone: 123-123-1234, branch: 1} - employees: [{35}]
-- **Call Stack:** api request is made, sent to router, which sends to controller, which then sends to services, where the business logic
-  is performed. For this scenario, the service being called is createEmployee. The newEmployee is assigned the new values provided
-- **Behavior:** a request is made to create a new employee. the createEmployee service is called.
-  This is where a newEmployee object is created with - the provided values and it is given a
-  unique employee id before it is pushed to the employees array. the new employee is then returned
-
-### Analysis
-
-- I learned how the data from the api request is taken to the service (employeeService.ts) and processed. In
-- this case processed to create a new employee.
-- No, there was no unexpected behavior
-- If i were to improve this part of the code, i would add some sort of validation that makes sure when a new employee
-- is created, they cant assign them an ID themselves, rather it should be automatically generated.
-- This helped me understand the flow of the api requests when they are made. Also made me more wary of when there i user input
-- that there shouldnt be.
-
-## Scenario 2: updating branches
-
-- **Breakpoint Location:** branchServices.ts - line 85
-- **Objective:** Check if the branch being updated is the correct branch, and the correct properties are assigned
+- **Breakpoint Location:** validate.ts - line 60
+- **Objective:** Try to understand how the validating middleware behaves, when running into data that doesnt pass validation
 
 ### Debugger Observations
 
-- **Variable States:** branches[index]: contains data about branch with, in this case id 1, being selected {address: string, id: 1,
-  name: "string", phone: "string"} - branches: [{10}]
-- **Call Stack:** api request is made, sent to router, which sends to controller, which then sends to services, where the business logic
-  is performed. For this scenario, the service being called is updateBranch. Branch data that shouldnt be passed is deleted, and anything
-  that does pass is stored in safeBranchData. safeBranchData is then used to update the branch
-- **Behavior:** a request is made to uodate a branch. the updateBranch service is called.
-  This is where an ezisting branch object is updated - the "safe" branch data is used to update the old branch data. the new
-  branch with updated data is then returned
+- **Variable States:** data: contains data inputted, that is to be validated
+- Note: this data was modified to purposely fail validation
+- {
+  "name": 1,
+  "department": "",
+  "email": "mscott@rrcacademiccom",
+  "phone": "1231231231123123",
+  "branch": 5,
+  "birthday": "yes"
+  }
+  error: contains all the error message for each field that failed validation
+  details: (6) details concerning why the each field didnt pass
+- **Call Stack:** api request is made to create an employee, the route is called, but before the controller is called,
+- the validateRequest middleware is called with employeeSchema being passed to it. the data is given to the validate function as well as the schema
+- **Behavior:** [Describe what happens at this point in the program]
+- a request is made to create an employee. the validate middleware is called. This is where the middleware "compares"
+- the data provided to create an employee, against the schema that is made. the validate function is called, where it checks for errors.
+- In this case there was errors, so it goes to the if block, where it throws errors.
 
 ### Analysis
 
-- I learned that when updating a branch, (and i assume updating an employee as well), you are able make it
-- so you cant update certain properties. This is useful when you want to keep people from changing properties they shouldnt be able to
-- The unexpected behavior was that i was able to add new properties to a branch object that werent in the type.
-- If i were to improve this part of the code, i would add some validation, filtering, or cleaning of data that comes in when
-- updating any branches (or employees).
+- Something i learned in this scenario is how the validation middleware works and how it treats errors in the data provided, when the data provided does not pass the employeeSchema i made.
+- Something that occurred that i did not expect, was that when i provided a field that, wasnt
+  part of the schema, like for example "birthday", i got an error message that wasnt part of the schema. "\"birthday\" is not allowed". Im guessing this is something that is built in Joi for
+  when someone adds a field that isnt expected in the schema.
+- i think that if i were to improve the code, i would add different schemas for different services/requests. For example, an updateEmployeeSchema, that way, someone updating an employee could would
+  be validated against different "criteria"
+- This helped me understand the functionality of middleware, and how schemas work
 
-## Scenario 3: getting employees by department
+## Scenario 2: [Title of the Scenario]
 
-- **Breakpoint Location:** employeeServices.ts - line 160
-- **Objective:** Checking how the departments behave when they are being compared to the provided department parameter
+- **Breakpoint Location:** [File and line number]
+- **Objective:** [What you are investigating or trying to understand]
 
 ### Debugger Observations
 
-- **Variable States:** employee = {id: 1, name: Alice Johnson...}
-  return value: false
-  employee = {id: 5, name: Linda Martinez}
-  return value: true
-- **Call Stack:**
-- **Behavior:** In this scenario, the function has checked if the department provided exists in the first place. It has, so it
-  filters through the employees for any employee that has a matching department with the department parameter provided.
-  If it matches, it adds it to my employeesInDaprtment array. After filtering, if there is no employees in the department,
-  an error is thrown. Otherwise, if there are employeesInDepartment, it is returned
+- **Variable States:** [List key variables and their values]
+- **Call Stack:** [Summarize the function sequence leading to the breakpoint]
+- **Behavior:** [Describe what happens at this point in the program]
 
 ### Analysis
 
-- In this scenarion i learned how to use the filter method. usually i would use a for loop, but i
-- have been experimenting and looking into other methods that function similarily or even "better".
-- No unexpected behavior was observed.
-- Not sure how i could improve this code. Maybe some sort of validation or error handling i am missing but dont realize.
+- What did you learn from this scenario?
+- Did you observe any unexpected behavior? If so, what might be the cause?
+- Are there areas for improvement or refactoring in this part of the code?
+- How does this enhance your understanding of the overall project?
+
+## Scenario 3: [Title of the Scenario]
+
+[Repeat the same format as Scenario 1]
