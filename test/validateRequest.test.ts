@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { validateRequest } from "../src/api/v1/middleware/validate";
 import { employeeSchema } from "../src/api/v1/validation/employeeValidation";
 import { branchSchema } from "../src/api/v1/validation/branchValidation";
+import { MiddlewareFunction } from "src/api/v1/types/expressTypes";
 
 describe("validateRequest Middleware", () => {
   let mockReq: Partial<Request>;
@@ -33,7 +34,7 @@ describe("validateRequest Middleware", () => {
       branch: "1",
     };
 
-    const middleware = validateRequest(employeeSchema);
+    const middleware: MiddlewareFunction = validateRequest(employeeSchema);
 
     // Act
     middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -56,7 +57,7 @@ describe("validateRequest Middleware", () => {
       branch: "",
     };
 
-    const middleware = validateRequest(employeeSchema);
+    const middleware: MiddlewareFunction = validateRequest(employeeSchema);
 
     // Act
     middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -75,7 +76,7 @@ describe("validateRequest Middleware", () => {
       birthday: "",
     };
 
-    const middleware = validateRequest(employeeSchema);
+    const middleware: MiddlewareFunction = validateRequest(employeeSchema);
 
     // Act
     middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -99,7 +100,7 @@ describe("validateRequest Middleware", () => {
       branch: "1",
     };
 
-    const middleware = validateRequest(employeeSchema);
+    const middleware: MiddlewareFunction = validateRequest(employeeSchema);
 
     // Act
     middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -123,7 +124,7 @@ describe("validateRequest Middleware", () => {
       branch: "1",
     };
 
-    const middleware = validateRequest(employeeSchema);
+    const middleware: MiddlewareFunction = validateRequest(employeeSchema);
 
     // Act
     middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -143,7 +144,7 @@ describe("validateRequest Middleware", () => {
       address: "123 Street St",
       phone: "1234567890",
     };
-    const middleware = validateRequest(branchSchema);
+    const middleware: MiddlewareFunction = validateRequest(branchSchema);
 
     // Act
     middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -161,7 +162,7 @@ describe("validateRequest Middleware", () => {
       address: "",
       phone: "",
     };
-    const middleware = validateRequest(branchSchema);
+    const middleware: MiddlewareFunction = validateRequest(branchSchema);
 
     // Act
     middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -177,7 +178,7 @@ describe("validateRequest Middleware", () => {
   it("should fail for missing inputs for branchSchema", () => {
     // Arrange
     mockReq.body = {};
-    const middleware = validateRequest(branchSchema);
+    const middleware: MiddlewareFunction = validateRequest(branchSchema);
 
     // Act
     middleware(mockReq as Request, mockRes as Response, mockNext);
@@ -197,7 +198,7 @@ describe("validateRequest Middleware", () => {
       address: "123 Street St",
       phone: "phone",
     };
-    const middleware = validateRequest(branchSchema);
+    const middleware: MiddlewareFunction = validateRequest(branchSchema);
 
     // Act
     middleware(mockReq as Request, mockRes as Response, mockNext);

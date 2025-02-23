@@ -1,4 +1,3 @@
-import { Request, Response, NextFunction } from "express";
 import { validate } from "../src/api/v1/middleware/validate";
 import { employeeSchema } from "../src/api/v1/validation/employeeValidation";
 import { branchSchema } from "../src/api/v1/validation/branchValidation";

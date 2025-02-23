@@ -110,7 +110,10 @@ export const updateBranch = async (
  */
 export const deleteBranch = async (id: string): Promise<void> => {
   try {
-    const branch = await getDocumentById(COLLECTION, id);
+    const branch: FirebaseFirestore.DocumentSnapshot = await getDocumentById(
+      COLLECTION,
+      id
+    );
 
     if (!branch) {
       throw new ServiceError(`Branch with id: ${id} does not exist.`);

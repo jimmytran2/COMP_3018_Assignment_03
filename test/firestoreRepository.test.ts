@@ -297,7 +297,7 @@ describe("Firestore Repository", () => {
     });
 
     it("should pass through RepositoryError if thrown from within", async () => {
-      const customError = new RepositoryError(
+      const customError: RepositoryError = new RepositoryError(
         "Custom error message",
         "CUSTOM_ERROR",
         400

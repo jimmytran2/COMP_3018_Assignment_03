@@ -15,7 +15,7 @@ import {
 
 import { ServiceError } from "../errors/error";
 
-const COLLECTION = "employees";
+const COLLECTION: string = "employees";
 
 /**
  * @interface Employee
@@ -114,7 +114,10 @@ export const updateEmployee = async (
  */
 export const deleteEmployee = async (id: string): Promise<void> => {
   try {
-    const employee = await getDocumentById(COLLECTION, id);
+    const employee: FirebaseFirestore.DocumentSnapshot = await getDocumentById(
+      COLLECTION,
+      id
+    );
 
     if (!employee) {
       throw new ServiceError(`Employee with id: ${id} does not exist.`);
