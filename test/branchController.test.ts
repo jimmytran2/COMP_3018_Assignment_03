@@ -1,3 +1,11 @@
+jest.mock("../src/api/v1/services/branchServices", () => ({
+  createBranch: jest.fn(),
+  getAllBranches: jest.fn(),
+  getBranchById: jest.fn(),
+  updateBranch: jest.fn(),
+  deleteBranch: jest.fn(),
+}));
+
 import { Request, Response, NextFunction } from "express";
 import * as branchController from "../src/api/v1/controllers/branchControllers";
 import * as branchService from "../src/api/v1/services/branchServices";
