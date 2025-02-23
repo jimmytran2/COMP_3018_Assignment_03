@@ -1,0 +1,1194 @@
+{
+	"info": {
+		"_postman_id": "4caae960-c550-485e-bdef-5b2050368372",
+		"name": "Assignment_3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40983606"
+	},
+	"item": [
+		{
+			"name": "Branches",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "Successful getAllBranches",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Successful getBranchById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/keDt5eiCvny3LV60LxG4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"keDt5eiCvny3LV60LxG4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed getBranchById - Non-Existent ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/potato",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"potato"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT",
+					"item": [
+						{
+							"name": "Successful updateBranch",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"name\": \"winnipeg\",\r\n    \"address\": \"123 Main St\",\r\n    \"phone\": \"1234567890\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/keDt5eiCvny3LV60LxG4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"keDt5eiCvny3LV60LxG4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateBranch - Non-existent branch",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Atlantis\",\r\n    \"address\": \"123 Fake St\",\r\n    \"phone\": \"1234567890\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/notRealId",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"notRealId"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateBranch - Empty Fields",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"name\": \"\",\r\n    \"address\": \"\",\r\n    \"phone\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/keDt5eiCvny3LV60LxG4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"keDt5eiCvny3LV60LxG4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateBranch - Missing Fields",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/keDt5eiCvny3LV60LxG4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"keDt5eiCvny3LV60LxG4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateBranch - Wrong type",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"name\": \"winnipeg\",\r\n    \"address\": \"123 Main St\",\r\n    \"phone\": 1234567890\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/keDt5eiCvny3LV60LxG4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"keDt5eiCvny3LV60LxG4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateBranch - Wrong Phone Format",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"name\": \"winnipeg\",\r\n    \"address\": \"123 Main St\",\r\n    \"phone\": \"12345678901231231231231231231\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/keDt5eiCvny3LV60LxG4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"keDt5eiCvny3LV60LxG4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateBranch - Extra Field",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"name\": \"winnipeg\",\r\n    \"address\": \"123 Broadway St\",\r\n    \"phone\": \"1234567890\",\r\n    \"date\": \"Christmas Eve\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/keDt5eiCvny3LV60LxG4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"keDt5eiCvny3LV60LxG4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Successful createBranch",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"id\": \"123\",\r\n    \"name\": \"Montreal\",\r\n    \"address\": \"123 French St\",\r\n    \"phone\": \"1234567890\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed createBranch - Missing Fields",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed createBranch - Empty Fields",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\",\r\n    \"address\": \"\",\r\n    \"phone\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed createBranch - Wrong Format",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"name\": \"Montreal\",\r\n    \"address\": \"123 French St\",\r\n    \"phone\": \"123456789012312312312312\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed createBranch - Extra Field",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \r\n    \"name\": \"Montreal\",\r\n    \"address\": \"123 French St\",\r\n    \"phone\": \"1234567890\",\r\n    \"date\": \"Halloween\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "Successful deleteBranch",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/keDt5eiCvny3LV60LxG4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"keDt5eiCvny3LV60LxG4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed deleteBranch - Non-Existent ID",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/branches/potato",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"branches",
+										"potato"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "Successful getAllEmployees",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Successful getEmployeeById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/CPoRjmYPHjXLUDpyDxMA",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"CPoRjmYPHjXLUDpyDxMA"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Successful getEmployeeByBranch",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/branches/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"branches",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Successful getEmployeesByDepartment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/departments/Marketing",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"departments",
+										"Marketing"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed getEmployeeById - Non-Existent ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/potato",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"potato"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed getEmployeeByBranch = Non-Existent Branch",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/branches/101",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"branches",
+										"101"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed getEmployees ByDepartment - Non-Existent Department",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/departments/Wizard",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"departments",
+										"Wizard"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT",
+					"item": [
+						{
+							"name": "Successful updateEmployee",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\r\n            \"id\": \"GjNw84Q280zIeKXHkAGF\",\r\n            \"phone\": \"1231231231\",\r\n            \"name\": \"James Smith\",\r\n            \"position\": \"Technician\",\r\n            \"department\": \"IT\",\r\n            \"branch\": \"2\",\r\n            \"email\": \"jamessmith@rrc.academic.com\"\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/GjNw84Q280zIeKXHkAGF",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"GjNw84Q280zIeKXHkAGF"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateEmployee - Non-existent employee",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\r\n            \"id\": \"GjNw84Q280zIeKXHkAGF\",\r\n            \"phone\": \"1231231231\",\r\n            \"name\": \"James Smith\",\r\n            \"position\": \"Lead Technician\",\r\n            \"department\": \"IT\",\r\n            \"branch\": \"2\",\r\n            \"email\": \"jamessmith@rrc.academic.com\"\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/NotRealId",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"NotRealId"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateEmployee - Empty Fields",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\r\n            \"id\": \"\",\r\n            \"phone\": \"\",\r\n            \"name\": \"\",\r\n            \"position\": \"\",\r\n            \"department\": \"\",\r\n            \"branch\": \"\",\r\n            \"email\": \"\"\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/GjNw84Q280zIeKXHkAGF",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"GjNw84Q280zIeKXHkAGF"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateEmployee - Missing Fields",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/GjNw84Q280zIeKXHkAGF",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"GjNw84Q280zIeKXHkAGF"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateEmployee - Wrong type",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\r\n            \"id\": \"GjNw84Q280zIeKXHkAGF\",\r\n            \"phone\": 1231231231,\r\n            \"name\": \"James Smith\",\r\n            \"position\": \"Lead Technician\",\r\n            \"department\": \"IT\",\r\n            \"branch\": 2,\r\n            \"email\": \"jamessmith@rrc.academic.etc\"\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/GjNw84Q280zIeKXHkAGF",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"GjNw84Q280zIeKXHkAGF"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateEmployee - Wrong Email/Phone Format",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\r\n            \"id\": \"GjNw84Q280zIeKXHkAGF\",\r\n            \"phone\": \"1231231231121233\",\r\n            \"name\": \"James Smith\",\r\n            \"position\": \"Lead Technician\",\r\n            \"department\": \"IT\",\r\n            \"branch\": \"2\",\r\n            \"email\": \"jamessmith@rrcacademic.etc\"\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/GjNw84Q280zIeKXHkAGF",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"GjNw84Q280zIeKXHkAGF"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed updateEmployee - Extra Field",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\r\n            \"id\": \"GjNw84Q280zIeKXHkAGF\",\r\n            \"phone\": \"1231231231\",\r\n            \"name\": \"James Smith\",\r\n            \"position\": \"Lead Technician\",\r\n            \"department\": \"IT\",\r\n            \"branch\": \"2\",\r\n            \"email\": \"jamessmith@rrc.academic.com\",\r\n            \"birthday\": \"Jan 1, 2000\"\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/GjNw84Q280zIeKXHkAGF",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"GjNw84Q280zIeKXHkAGF"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Successful createEmployee",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Michael Scott\",\r\n    \"position\": \"Manager\",\r\n    \"department\": \"Paper\",\r\n    \"email\": \"mscott@rrc.academic.com\",\r\n    \"phone\": \"1231231231\",\r\n    \"branch\": \"5\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed createEmployee - Missing Fields",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed createEmployee - Empty Fields",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\",\r\n    \"position\": \"\",\r\n    \"department\": \"\",\r\n    \"email\": \"\",\r\n    \"phone\": \"\",\r\n    \"branch\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed createEmployee - Wrong Format",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Michael Scott\",\r\n    \"position\": \"Manager\",\r\n    \"department\": \"Paper\",\r\n    \"email\": \"mscott@rrcacademiccom\",\r\n    \"phone\": \"1231231231123123\",\r\n    \"branch\": \"5\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed createEmployee - Extra Field",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Michael Scott\",\r\n    \"position\": \"Manager\",\r\n    \"department\": \"Paper\",\r\n    \"email\": \"mscott@rrc.academic.com\",\r\n    \"phone\": \"1231231231\",\r\n    \"branch\": \"5\",\r\n    \"birthday\": \"Jan 1 2000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "Successful deleteEmployee",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/CPoRjmYPHjXLUDpyDxMA",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"CPoRjmYPHjXLUDpyDxMA"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Failed deleteEmployee - Non-Existent ID",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/employees/potato",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"potato"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
