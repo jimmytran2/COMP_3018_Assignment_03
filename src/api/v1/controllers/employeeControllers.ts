@@ -103,7 +103,7 @@ export const deleteEmployee = async (
 ): Promise<void> => {
   try {
     await employeeService.deleteEmployee(req.params.id);
-    res.status(200).json(successResponse({ message: "Employee deleted" }));
+    res.status(200).json(successResponse(undefined, "Employee deleted"));
   } catch (error) {
     next(error);
   }

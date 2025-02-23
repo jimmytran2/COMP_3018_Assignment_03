@@ -99,7 +99,7 @@ export const deleteBranch = async (
 ): Promise<void> => {
   try {
     await branchService.deleteBranch(req.params.id);
-    res.status(200).json(successResponse({ message: "Branch deleted" }));
+    res.status(200).json(successResponse(undefined, "Branch deleted"));
   } catch (error) {
     next(error);
   }
