@@ -43,7 +43,7 @@ export const createEmployee = async (
   try {
     const id: string = await createDocument(COLLECTION, employee);
     return { id, ...employee } as Employee;
-  } catch (error) {
+  } catch {
     throw new ServiceError("Could not create employee");
   }
 };
@@ -63,7 +63,7 @@ export const getAllEmployees = async (): Promise<Employee[]> => {
       const data: FirebaseFirestore.DocumentData = doc.data();
       return { id: doc.id, ...data } as Employee;
     });
-  } catch (error) {
+  } catch {
     throw new ServiceError("Could not retrieve employees");
   }
 };
@@ -81,9 +81,8 @@ export const getEmployeeById = async (id: string): Promise<Employee> => {
       id
     );
 
-    const data = snapshot.data();
-    return data as Employee;
-  } catch (error) {
+    return snapshot.data() as Employee;
+  } catch {
     throw new ServiceError(`Could not retrieve employee with id: ${id}`);
   }
 };
@@ -102,7 +101,7 @@ export const updateEmployee = async (
   try {
     await updateDocument(COLLECTION, id, employee);
     return { id, ...employee } as Employee;
-  } catch (error) {
+  } catch {
     throw new ServiceError(`Unable to update employee with id: ${id}`);
   }
 };
@@ -121,7 +120,7 @@ export const deleteEmployee = async (id: string): Promise<void> => {
       throw new ServiceError(`Employee with id: ${id} does not exist.`);
     }
     await deleteDocument(COLLECTION, id);
-  } catch (error) {
+  } catch {
     throw new ServiceError(`Unable to delete employee with id: ${id}`);
   }
 };
@@ -143,7 +142,7 @@ export const getEmployeeByBranch = async (
       const data: FirebaseFirestore.DocumentData = doc.data();
       return { id: doc.id, ...data } as Employee;
     });
-  } catch (error) {
+  } catch {
     throw new ServiceError(
       `Could not retrieve employees from branch ${branchId}`
     );
@@ -167,7 +166,7 @@ export const getEmployeeByDepartment = async (
       const data: FirebaseFirestore.DocumentData = doc.data();
       return { id: doc.id, ...data } as Employee;
     });
-  } catch (error) {
+  } catch {
     throw new ServiceError(
       `Could not retrieve employees from ${department} department`
     );

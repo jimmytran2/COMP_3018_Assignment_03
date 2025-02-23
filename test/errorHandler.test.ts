@@ -26,7 +26,9 @@ describe("Error Handler Middleware", () => {
   });
 
   it("should handle ValidationError with custom status code and error code", () => {
-    const testError = new ValidationError("Could not be validated");
+    const testError: ValidationError = new ValidationError(
+      "Could not be validated"
+    );
 
     errorHandler(testError, mockReq as Request, mockRes as Response, mockNext);
 
@@ -37,7 +39,9 @@ describe("Error Handler Middleware", () => {
   });
 
   it("should handle RepositoryError with custom status code and error code", () => {
-    const testError = new RepositoryError("Document not found");
+    const testError: RepositoryError = new RepositoryError(
+      "Document not found"
+    );
 
     errorHandler(testError, mockReq as Request, mockRes as Response, mockNext);
 
@@ -48,7 +52,7 @@ describe("Error Handler Middleware", () => {
   });
 
   it("should handle ServiceError with custom status code and error code", () => {
-    const testError = new ServiceError("Invalid input");
+    const testError: ServiceError = new ServiceError("Invalid input");
 
     errorHandler(testError, mockReq as Request, mockRes as Response, mockNext);
 
@@ -59,7 +63,7 @@ describe("Error Handler Middleware", () => {
   });
 
   it("should handle basic Error object with default status and code", () => {
-    const testError = new Error("Basic error");
+    const testError: Error = new Error("Basic error");
 
     errorHandler(testError, mockReq as Request, mockRes as Response, mockNext);
 
@@ -74,7 +78,7 @@ describe("Error Handler Middleware", () => {
   });
 
   it("should handle null errors", () => {
-    const testError = null;
+    const testError: null = null;
 
     errorHandler(testError, mockReq as Request, mockRes as Response, mockNext);
 

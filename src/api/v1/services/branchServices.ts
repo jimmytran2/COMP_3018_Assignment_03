@@ -8,14 +8,13 @@ import {
   createDocument,
   getDocuments,
   getDocumentById,
-  getDocumentsByFieldValue,
   updateDocument,
   deleteDocument,
 } from "../repositories/firestoreRepository";
 
 import { ServiceError } from "../errors/error";
 
-const COLLECTION = "branches";
+const COLLECTION: string = "branches";
 
 /**
  * @interface Branch
@@ -40,8 +39,8 @@ export const createBranch = async (
   try {
     const id: string = await createDocument(COLLECTION, branch);
     return { id, ...branch } as Branch;
-  } catch (error) {
-    throw new ServiceError("Could not create branch");
+  } catch {
+    throw new ServiceError(`Could not create branch`);
   }
 };
 
@@ -61,7 +60,7 @@ export const getAllBranches = async (): Promise<Branch[]> => {
       return { id: doc.id, ...data } as Branch;
     });
   } catch (error) {
-    throw new ServiceError("Could not retrieve branches");
+    throw new ServiceError(`Could not retrieve branches: ${error}`);
   }
 };
 
@@ -78,9 +77,8 @@ export const getBranchById = async (id: string): Promise<Branch> => {
       id
     );
 
-    const data = snapshot.data();
-    return data as Branch;
-  } catch (error) {
+    return snapshot.data() as Branch;
+  } catch {
     throw new ServiceError(`Could not retrieve branch with id: ${id}`);
   }
 };
@@ -99,7 +97,7 @@ export const updateBranch = async (
   try {
     await updateDocument(COLLECTION, id, branch);
     return { id, ...branch } as Branch;
-  } catch (error) {
+  } catch {
     throw new ServiceError(`Unable to update branch with id: ${id}`);
   }
 };
@@ -118,7 +116,7 @@ export const deleteBranch = async (id: string): Promise<void> => {
       throw new ServiceError(`Branch with id: ${id} does not exist.`);
     }
     await deleteDocument(COLLECTION, id);
-  } catch (error) {
+  } catch {
     throw new ServiceError(`Unable to delete branch with id: ${id}`);
   }
 };

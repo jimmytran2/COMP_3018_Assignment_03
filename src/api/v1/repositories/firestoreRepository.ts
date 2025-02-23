@@ -37,7 +37,7 @@ export const runTransaction = async <T>(
   try {
     return await db.runTransaction(operations);
   } catch (error: unknown) {
-    throw new RepositoryError(`Transaction Failed`);
+    throw new RepositoryError(`Transaction Failed: ${error}`);
   }
 };
 
@@ -71,7 +71,7 @@ export const createDocument = async <T>(
 
     return docRef.id;
   } catch (error: unknown) {
-    throw new RepositoryError(`Transaction Failed`);
+    throw new RepositoryError(`Transaction Failed: ${error}`);
   }
 };
 
@@ -90,7 +90,7 @@ export const getDocuments = async (
     return await db.collection(collectionName).get();
   } catch (error: unknown) {
     throw new RepositoryError(
-      `Failed to fetch documents from ${collectionName}`
+      `Failed to fetch documents from ${collectionName}: ${error}`
     );
   }
 };
@@ -222,7 +222,7 @@ export const updateDocument = async <T>(
     await db.collection(collectionName).doc(id).update(data);
   } catch (error: unknown) {
     throw new RepositoryError(
-      `Failed to update document ${id} in ${collectionName}`
+      `Failed to update document ${id} in ${collectionName}: ${error}`
     );
   }
 };
@@ -264,7 +264,7 @@ export const deleteDocument = async (
     }
   } catch (error: unknown) {
     throw new RepositoryError(
-      `Failed to delete document ${id} from ${collectionName}`
+      `Failed to delete document ${id} from ${collectionName}: ${error}`
     );
   }
 };

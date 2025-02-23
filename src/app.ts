@@ -4,7 +4,6 @@ import employeeRoutes from "./api/v1/routes/employeeRoutes";
 import branchRoutes from "./api/v1/routes/branchRoutes";
 import setupSwagger from "../config/swagger";
 import errorHandler from "./api/v1/middleware/errorHandler";
-import { errorResponse } from "./api/v1/models/responseModel";
 
 const app: Express = express();
 
