@@ -112,6 +112,11 @@ export const updateBranch = async (
  */
 export const deleteBranch = async (id: string): Promise<void> => {
   try {
+    const branch = await getDocumentById(COLLECTION, id);
+
+    if (!branch) {
+      throw new ServiceError(`Branch with id: ${id} does not exist.`);
+    }
     await deleteDocument(COLLECTION, id);
   } catch (error) {
     throw new ServiceError(`Unable to delete branch with id: ${id}`);

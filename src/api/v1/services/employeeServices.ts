@@ -115,6 +115,11 @@ export const updateEmployee = async (
  */
 export const deleteEmployee = async (id: string): Promise<void> => {
   try {
+    const employee = await getDocumentById(COLLECTION, id);
+
+    if (!employee) {
+      throw new ServiceError(`Employee with id: ${id} does not exist.`);
+    }
     await deleteDocument(COLLECTION, id);
   } catch (error) {
     throw new ServiceError(`Unable to delete employee with id: ${id}`);
