@@ -8,6 +8,11 @@
 
 import express, { Router } from "express";
 import * as branchController from "../controllers/branchControllers";
+import { validateRequest } from "../middleware/validate";
+import {
+  branchSchema,
+  deleteBranchSchema,
+} from "../validation/branchValidation";
 
 const router: Router = express.Router();
 
@@ -37,7 +42,7 @@ const router: Router = express.Router();
  *         description: the new branch that was created
  *
  */
-router.post("/", branchController.createBranch);
+router.post("/", validateRequest(branchSchema), branchController.createBranch);
 
 /**
  * @route GET /
@@ -108,7 +113,11 @@ router.get("/:id", branchController.getBranchById);
  *       200:
  *         description: the updated branch
  */
-router.put("/:id", branchController.updateBranch);
+router.put(
+  "/:id",
+  validateRequest(branchSchema),
+  branchController.updateBranch
+);
 
 /**
  * @route DELETE /:id
@@ -130,6 +139,10 @@ router.put("/:id", branchController.updateBranch);
  *       200:
  *         description: branch deleted
  */
-router.delete("/:id", branchController.deleteBranch);
+router.delete(
+  "/:id",
+  validateRequest(deleteBranchSchema),
+  branchController.deleteBranch
+);
 
 export default router;

@@ -3,6 +3,7 @@ import morgan from "morgan";
 import employeeRoutes from "./api/v1/routes/employeeRoutes";
 import branchRoutes from "./api/v1/routes/branchRoutes";
 import setupSwagger from "../config/swagger";
+import errorHandler from "./api/v1/middleware/errorHandler";
 
 const app: Express = express();
 
@@ -38,5 +39,7 @@ app.get("/health", (req, res) => {
 
 app.use("/api/v1/employees", employeeRoutes);
 app.use("/api/v1/branches", branchRoutes);
+
+app.use(errorHandler);
 
 export default app;

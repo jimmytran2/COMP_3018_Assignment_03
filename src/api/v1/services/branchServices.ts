@@ -4,99 +4,122 @@
  * This file defines functions for managing branch data.
  */
 
-import { branchData } from "./branchData";
+import {
+  createDocument,
+  getDocuments,
+  getDocumentById,
+  updateDocument,
+  deleteDocument,
+} from "../repositories/firestoreRepository";
+
+import { ServiceError } from "../errors/error";
+
+const COLLECTION: string = "branches";
 
 /**
  * @interface Branch
  * @description Represents a branch object
  */
 export type Branch = {
-  id: number;
+  id: string;
   name: string;
   address: string;
   phone: string;
 };
 
-// Uses sample branch data from branchData.ts
-const branches: Branch[] = [...branchData];
-let newBranchId: number = branches.length;
-
 /**
  * @description Create a new branch
- * @param {{name: string; address: string, phone: string}} branch - branch data
+ * @param {Partial<Branch>} branch - branch data
  * @returns {Promise<Branch>} promise that is resolved to the branch that is created
+ * @throws {ServiceError} - unable to create branch
  */
-export const createBranch = async (branch: {
-  name: string;
-  address: string;
-  phone: string;
-}): Promise<Branch> => {
-  newBranchId++;
-  const newBranch: Branch = { id: newBranchId, ...branch };
-  branches.push(newBranch);
-  return newBranch;
+export const createBranch = async (
+  branch: Partial<Branch>
+): Promise<Branch> => {
+  try {
+    const id: string = await createDocument(COLLECTION, branch);
+    return { id, ...branch } as Branch;
+  } catch {
+    throw new ServiceError(`Could not create branch`);
+  }
 };
 
 /**
  * @description Gets all branches
  * @returns {Promise<Branch[]>} promise that is resolved to all branches that are retrieved
+ * @throws {ServiceError} - unable to retrieve branches
  */
 export const getAllBranches = async (): Promise<Branch[]> => {
-  return branches;
+  try {
+    const snapshot: FirebaseFirestore.QuerySnapshot = await getDocuments(
+      COLLECTION
+    );
+
+    return snapshot.docs.map((doc) => {
+      const data: FirebaseFirestore.DocumentData = doc.data();
+      return { id: doc.id, ...data } as Branch;
+    });
+  } catch (error) {
+    throw new ServiceError(`Could not retrieve branches: ${error}`);
+  }
 };
 
 /**
  * @description Gets branch by branch id
- * @param {number} id - unique id for a branch
+ * @param {string} id - unique id for a branch
  * @returns {Promise<Branch>} promise that is resolved to the branch thats retrieved
  * @throws {Error} branch id is not found
  */
-export const getBranchById = async (id: number): Promise<Branch> => {
-  const index: number = branches.findIndex((i) => i.id === id);
+export const getBranchById = async (id: string): Promise<Branch> => {
+  try {
+    const snapshot: FirebaseFirestore.DocumentSnapshot = await getDocumentById(
+      COLLECTION,
+      id
+    );
 
-  if (index === -1) {
-    throw new Error(`Branch with ID ${id} not found`);
+    return snapshot.data() as Branch;
+  } catch {
+    throw new ServiceError(`Could not retrieve branch with id: ${id}`);
   }
-
-  return branches[index];
 };
 
 /**
  * @description Updates an existing branch
- * @param {number} id - unique id for a branch
- * @param {Partial<Branch>} branchData - object containing branch data to be updated
+ * @param {string} id - unique id for a branch
+ * @param {Partial<Branch>} branch - object containing branch data to be updated
  * @returns {Promise<Branch>} promise that is resolved to the branch thats been updated
  * @throws {Error} branch id is not found
  */
 export const updateBranch = async (
-  id: number,
-  branchData: Partial<Branch>
+  id: string,
+  branch: Partial<Branch>
 ): Promise<Branch> => {
-  const index: number = branches.findIndex((i) => i.id === id);
-
-  if (index === -1) {
-    throw new Error(`Branch with ID ${id} not found`);
+  try {
+    await updateDocument(COLLECTION, id, branch);
+    return { id, ...branch } as Branch;
+  } catch {
+    throw new ServiceError(`Unable to update branch with id: ${id}`);
   }
-
-  const safeBranchData: Partial<Branch> = { ...branchData };
-  delete safeBranchData.id;
-
-  branches[index] = { ...branches[index], ...safeBranchData };
-  return branches[index];
 };
 
 /**
  * @description Deletes an existing branch
- * @param {number} id - a unique id for a branch
+ * @param {string} id - a unique id for a branch
  * @returns {Promise<void>}
- * @throws {Error} branch id is not found
+ * @throws {Error} unable to delete branch
  */
-export const deleteBranch = async (id: number): Promise<void> => {
-  const index: number = branches.findIndex((i) => i.id === id);
+export const deleteBranch = async (id: string): Promise<void> => {
+  try {
+    const branch: FirebaseFirestore.DocumentSnapshot = await getDocumentById(
+      COLLECTION,
+      id
+    );
 
-  if (index === -1) {
-    throw new Error(`Branch with ID ${id} not found`);
+    if (!branch) {
+      throw new ServiceError(`Branch with id: ${id} does not exist.`);
+    }
+    await deleteDocument(COLLECTION, id);
+  } catch {
+    throw new ServiceError(`Unable to delete branch with id: ${id}`);
   }
-
-  branches.splice(index, 1);
 };

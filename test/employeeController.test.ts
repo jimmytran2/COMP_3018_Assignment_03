@@ -20,13 +20,13 @@ describe("Employee Controller", () => {
   describe("createEmployee", () => {
     it("should handle a successful operation", async () => {
       const mockEmployee: Employee = {
-        id: 1,
+        id: "1",
         name: "John Doe",
         position: "Manager",
         department: "Accounting",
         email: "johndoe@pixell-river.com",
         phone: "123-456-7890",
-        branch: 9,
+        branch: "9",
       };
 
       (employeeService.createEmployee as jest.Mock).mockResolvedValue(
@@ -43,6 +43,7 @@ describe("Employee Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Employee created",
         data: mockEmployee,
+        status: "success",
       });
     });
   });
@@ -51,13 +52,13 @@ describe("Employee Controller", () => {
     it("should handle a successful operation", async () => {
       const mockEmployee: Employee[] = [
         {
-          id: 1,
+          id: "1",
           name: "John Doe",
           position: "Manager",
           department: "Accounting",
           email: "johndoe@pixell-river.com",
           phone: "123-456-7890",
-          branch: 9,
+          branch: "9",
         },
       ];
 
@@ -75,6 +76,7 @@ describe("Employee Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Employees retrieved",
         data: mockEmployee,
+        status: "success",
       });
     });
   });
@@ -82,13 +84,13 @@ describe("Employee Controller", () => {
   describe("getEmployeeById", () => {
     it("should handle a succesful opereation", async () => {
       const mockEmployee: Employee = {
-        id: 1,
+        id: "1",
         name: "John Doe",
         position: "Manager",
         department: "Accounting",
         email: "johndoe@pixell-river.com",
         phone: "123-456-7890",
-        branch: 9,
+        branch: "9",
       };
 
       (employeeService.getEmployeeById as jest.Mock).mockResolvedValue(
@@ -105,6 +107,7 @@ describe("Employee Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Employee retrieved",
         data: mockEmployee,
+        status: "success",
       });
     });
   });
@@ -112,13 +115,13 @@ describe("Employee Controller", () => {
   describe("updateEmployee", () => {
     it("should handle successful operation", async () => {
       const mockEmployee: Employee = {
-        id: 1,
+        id: "1",
         name: "John Doe",
         position: "Manager",
         department: "Accounting",
         email: "johndoe@pixell-river.com",
         phone: "123-456-7890",
-        branch: 9,
+        branch: "9",
       };
 
       (employeeService.updateEmployee as jest.Mock).mockResolvedValue(
@@ -135,6 +138,7 @@ describe("Employee Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Employee updated",
         data: mockEmployee,
+        status: "success",
       });
     });
   });
@@ -154,6 +158,7 @@ describe("Employee Controller", () => {
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Employee deleted",
+        status: "success",
       });
     });
   });
@@ -162,13 +167,13 @@ describe("Employee Controller", () => {
     it("should handle a succesful opereation", async () => {
       const mockEmployee: Employee[] = [
         {
-          id: 1,
+          id: "1",
           name: "John Doe",
           position: "Manager",
           department: "Accounting",
           email: "johndoe@pixell-river.com",
           phone: "123-456-7890",
-          branch: 9,
+          branch: "9",
         },
       ];
 
@@ -186,6 +191,7 @@ describe("Employee Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Employees from branch retrieved",
         data: mockEmployee,
+        status: "success",
       });
     });
   });
@@ -194,13 +200,13 @@ describe("Employee Controller", () => {
     it("should handle a succesful opereation", async () => {
       const mockEmployee: Employee[] = [
         {
-          id: 1,
+          id: "1",
           name: "John Doe",
           position: "Manager",
           department: "Accounting",
           email: "johndoe@pixell-river.com",
           phone: "123-456-7890",
-          branch: 9,
+          branch: "9",
         },
       ];
 
@@ -218,6 +224,7 @@ describe("Employee Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Employees from department retrieved",
         data: mockEmployee,
+        status: "success",
       });
     });
   });

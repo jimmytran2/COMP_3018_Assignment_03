@@ -25,10 +25,10 @@ describe("Branch Routes", () => {
   describe("POST api/v1/branches", () => {
     it("should call createBranch controller", async () => {
       const mockBranch: Branch = {
-        id: 1,
+        id: "1",
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
-        phone: "604-456-0022",
+        phone: "6044560022",
       };
 
       await request(app).post("/api/v1/branches").send(mockBranch);
@@ -45,7 +45,7 @@ describe("Branch Routes", () => {
 
   describe("GET /api/v1/branches/:id", () => {
     it("should call getBranchesById controller", async () => {
-      const mockId: number = 1;
+      const mockId: string = "1";
 
       await request(app).get(`/api/v1/branches/${mockId}`);
       expect(getBranchById).toHaveBeenCalled();
@@ -55,13 +55,13 @@ describe("Branch Routes", () => {
   describe("PUT /api/v1/branches/:id", () => {
     it("should call updateBranch controller", async () => {
       const mockBranch: Partial<Branch> = {
-        id: 1,
+        id: "1",
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
-        phone: "604-456-0022",
+        phone: "6044560022",
       };
 
-      const mockId: number = 1;
+      const mockId: string = "1";
 
       await request(app).put(`/api/v1/branches/${mockId}`).send(mockBranch);
       expect(updateBranch).toHaveBeenCalled();
@@ -70,7 +70,7 @@ describe("Branch Routes", () => {
 
   describe("DELETE /api/v1/branch/:id", () => {
     it("should call deleteBranch controller", async () => {
-      const mockId: number = 1;
+      const mockId: string = "1";
       await request(app).delete(`/api/v1/branches/${mockId}`);
       expect(deleteBranch).toHaveBeenCalled();
     });

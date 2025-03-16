@@ -1,3 +1,11 @@
+jest.mock("../src/api/v1/services/branchServices", () => ({
+  createBranch: jest.fn(),
+  getAllBranches: jest.fn(),
+  getBranchById: jest.fn(),
+  updateBranch: jest.fn(),
+  deleteBranch: jest.fn(),
+}));
+
 import { Request, Response, NextFunction } from "express";
 import * as branchController from "../src/api/v1/controllers/branchControllers";
 import * as branchService from "../src/api/v1/services/branchServices";
@@ -20,7 +28,7 @@ describe("Branch Controller", () => {
   describe("createBranch", () => {
     it("should handle a succesful operation", async () => {
       const mockBranch: Branch = {
-        id: 1,
+        id: "1",
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
         phone: "604-456-0022",
@@ -38,6 +46,7 @@ describe("Branch Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Branch created",
         data: mockBranch,
+        status: "success",
       });
     });
   });
@@ -46,7 +55,7 @@ describe("Branch Controller", () => {
     it("should handle a successful operation", async () => {
       const mockBranch: Branch[] = [
         {
-          id: 1,
+          id: "1",
           name: "Vancouver Branch",
           address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
           phone: "604-456-0022",
@@ -65,6 +74,7 @@ describe("Branch Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Branches retrieved",
         data: mockBranch,
+        status: "success",
       });
     });
   });
@@ -72,7 +82,7 @@ describe("Branch Controller", () => {
   describe("getBranchById", () => {
     it("should handle a successful operation", async () => {
       const mockBranch: Branch = {
-        id: 1,
+        id: "1",
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
         phone: "604-456-0022",
@@ -90,6 +100,7 @@ describe("Branch Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Branch retrieved",
         data: mockBranch,
+        status: "success",
       });
     });
   });
@@ -97,7 +108,7 @@ describe("Branch Controller", () => {
   describe("updateBranch", () => {
     it("should handle a successful operation", async () => {
       const mockBranch: Branch = {
-        id: 1,
+        id: "1",
         name: "Vancouver Branch",
         address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
         phone: "604-456-0022",
@@ -115,6 +126,7 @@ describe("Branch Controller", () => {
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Branch updated",
         data: mockBranch,
+        status: "success",
       });
     });
   });
@@ -132,6 +144,7 @@ describe("Branch Controller", () => {
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({
         message: "Branch deleted",
+        status: "success",
       });
     });
   });
