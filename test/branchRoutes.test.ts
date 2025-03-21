@@ -7,7 +7,7 @@ import {
   updateBranch,
   deleteBranch,
 } from "../src/api/v1/controllers/branchControllers";
-import type { Branch } from "../src/api/v1/services/branchServices";
+import type { Branch } from "../src/api/v1/models/branchModel";
 
 jest.mock("../src/api/v1/controllers/branchControllers", () => ({
   createBranch: jest.fn((req, res) => res.status(201).send()),
