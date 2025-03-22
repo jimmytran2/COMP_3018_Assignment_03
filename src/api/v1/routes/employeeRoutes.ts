@@ -23,7 +23,7 @@ const router: Router = express.Router();
  * @openapi
  * /api/v1/employees:
  *   post:
- *     summary: Creates a new employee
+ *     summary: Create a new employee
  *     tags: [Employee]
  *     requestBody:
  *       required: true
@@ -56,18 +56,16 @@ const router: Router = express.Router();
  *                 message:
  *                   type: string
  *             example:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   data:
- *                     id: "eK4HyF5P542xK3hriGH7"
- *                     name: "Michael Scott"
- *                     position: "Manager"
- *                     department: "Paper"
- *                     email: "mscott@rrc.academic.com"
- *                     phone: "1231231231"
- *                     branch: "5"
- *                   message: "Branch created"
+ *                 status: "success"
+ *                 data:
+ *                   id: "eK4HyF5P542xK3hriGH7"
+ *                   name: "Michael Scott"
+ *                   position: "Manager"
+ *                   department: "Paper"
+ *                   email: "mscott@rrc.academic.com"
+ *                   phone: "1231231231"
+ *                   branch: "5"
+ *                 message: "Branch created"
  *       400:
  *         description: Invalid inputs
  *       500:
@@ -81,7 +79,7 @@ router.post(
 
 /**
  * @route GET /
- * @description Gets all employees
+ * @description Gets all existing employees
  *
  * @openapi
  * /api/v1/employees:
@@ -105,25 +103,23 @@ router.post(
  *                 message:
  *                   type: string
  *             example:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   data:
- *                     - id: "eK4HyF5P542xK3hriGH7"
- *                       name: "Michael Scott"
- *                       position: "Manager"
- *                       department: "Paper"
- *                       email: "mscott@rrc.academic.com"
- *                       phone: "1231231231"
- *                       branch: "5"
- *                     - id: "CPoRjmYPHjXLUDpyDxMA"
- *                       name: "Jimmy Tran"
- *                       position: "Help Desk"
- *                       department: "Finance"
- *                       email: "jimmy@rrc.academic.com"
- *                       phone: "1234567890"
- *                       branch: "1"
- *                   message: "Employees retrieved"
+ *                 status: "success"
+ *                 data:
+ *                   - id: "eK4HyF5P542xK3hriGH7"
+ *                     name: "Michael Scott"
+ *                     position: "Manager"
+ *                     department: "Paper"
+ *                     email: "mscott@rrc.academic.com"
+ *                     phone: "1231231231"
+ *                     branch: "5"
+ *                   - id: "CPoRjmYPHjXLUDpyDxMA"
+ *                     name: "Jimmy Tran"
+ *                     position: "Help Desk"
+ *                     department: "Finance"
+ *                     email: "jimmy@rrc.academic.com"
+ *                     phone: "1234567890"
+ *                     branch: "1"
+ *                 message: "Employees retrieved"
  *       500:
  *         description: Internal Server Error
  */
@@ -131,12 +127,12 @@ router.get("/", employeeController.getAllEmployees);
 
 /**
  * @route GET /:id
- * @description Gets an employee with corresponding id
+ * @description Gets an employee by id
  *
  * @openapi
  * /api/v1/employees/{id}:
  *   get:
- *     summary: Gets employee with corresponding id
+ *     summary: Gets employee by id
  *     tags: [Employee]
  *     parameters:
  *       - in: path
@@ -163,17 +159,15 @@ router.get("/", employeeController.getAllEmployees);
  *                 message:
  *                   type: string
  *             example:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   data:
- *                     - id: "eK4HyF5P542xK3hriGH7"
- *                       name: "Michael Scott"
- *                       position: "Manager"
- *                       department: "Paper"
- *                       email: "mscott@rrc.academic.com"
- *                       phone: "1231231231"
- *                   message: "Employee retrieved"
+ *                 status: "success"
+ *                 data:
+ *                   - id: "eK4HyF5P542xK3hriGH7"
+ *                     name: "Michael Scott"
+ *                     position: "Manager"
+ *                     department: "Paper"
+ *                     email: "mscott@rrc.academic.com"
+ *                     phone: "1231231231"
+ *                 message: "Employee retrieved"
  *       500:
  *         description: Internal Server Error
  */
@@ -186,7 +180,7 @@ router.get("/:id", employeeController.getEmployeeById);
  * @openapi
  * /api/v1/employees/{id}:
  *   put:
- *     summary: updates an existing employee
+ *     summary: Updates an existing employee
  *     tags: [Employee]
  *     parameters:
  *       - in: path
@@ -227,18 +221,16 @@ router.get("/:id", employeeController.getEmployeeById);
  *                 message:
  *                   type: string
  *             example:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   data:
- *                     id: "eK4HyF5P542xK3hriGH7"
- *                     name: "Michael Scott"
- *                     position: "Manager"
- *                     department: "Paper"
- *                     email: "mscott@rrc.academic.com"
- *                     phone: "1231231231"
- *                     branch: "5"
- *                   message: "Employee updated"
+ *                 status: "success"
+ *                 data:
+ *                   id: "eK4HyF5P542xK3hriGH7"
+ *                   name: "Michael Scott"
+ *                   position: "Manager"
+ *                   department: "Paper"
+ *                   email: "mscott@rrc.academic.com"
+ *                   phone: "1231231231"
+ *                   branch: "5"
+ *                 message: "Employee updated"
  *       400:
  *         description: Invalid inputs
  *       500:
@@ -252,12 +244,12 @@ router.put(
 
 /**
  * @route DELETE /:id
- * @description Deletes an employee
+ * @description Deletes an existing employee
  *
  * @openapi
  * /api/v1/employeees/{id}:
  *   delete:
- *     summary: deletes an existing employee
+ *     summary: Deletes an existing employee
  *     tags: [Employee]
  *     parameters:
  *       - in: path
@@ -280,10 +272,8 @@ router.put(
  *                 message:
  *                   type: string
  *             example:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   message: "Employee delete"
+ *                status: "success"
+ *                message: "Employee delete"
  *       500:
  *         description: Internal Server Error
  */
@@ -295,12 +285,12 @@ router.delete(
 
 /**
  * @route GET /branches/:branch
- * @description Gets all employees from a branch
+ * @description Gets employees by branch
  *
  * @openapi
  * /api/v1/employees/branches/{branch}:
  *   get:
- *     summary: Gets employees from a particular branch
+ *     summary: Gets employees by branch
  *     tags: [Employee]
  *     parameters:
  *       - in: path
@@ -333,12 +323,12 @@ router.get("/branches/:branch", employeeController.getEmployeeByBranch);
 
 /**
  * @route GET /departments/:department
- * @description Gets all employees from a department
+ * @description Gets employees by department
  *
  * @openapi
  * /api/v1/employees/departments/{department}:
  *   get:
- *     summary: Gets employees from a particular department
+ *     summary: Gets employees by department
  *     tags: [Employee]
  *     parameters:
  *       - in: path

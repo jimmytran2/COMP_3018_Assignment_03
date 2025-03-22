@@ -1,0 +1,824 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Documentation",
+    "version": "1.0.0",
+    "description": "API Documentation for Backend Assignment. A branch and employee information management application"
+  },
+  "server": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Local server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Branch": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for a branch"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of a branch"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address of a branch"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of a branch"
+          }
+        }
+      },
+      "Employee": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for an employee"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of an employee"
+          },
+          "position": {
+            "type": "string",
+            "description": "Job position of an employee"
+          },
+          "department": {
+            "type": "string",
+            "description": "Department where an employee works"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of an employee"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of an employee"
+          },
+          "branch": {
+            "type": "string",
+            "description": "Unique identifier of the branch the employee works at"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/v1/branches": {
+      "post": {
+        "summary": "Creates a new branch",
+        "tags": [
+          "Branch"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/Branch"
+              },
+              "example": {
+                "id": "123",
+                "name": "Montreal",
+                "address": "123 French St",
+                "phone": "1234567890"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The new branch was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Branch"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "data": {
+                    "id": "123",
+                    "name": "Montreal",
+                    "address": "123 French St",
+                    "phone": "1234567890"
+                  },
+                  "message": "Branch created"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid inputs"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Gets all existing branches",
+        "tags": [
+          "Branch"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all the branches retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Branch"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "data": [
+                    {
+                      "id": "HvbwzmVBkqAkove68KUs",
+                      "name": "calgary",
+                      "address": "123 rainbow St",
+                      "phone": "1234567890"
+                    },
+                    {
+                      "id": "V01OXjtQowI8GnenrAZq",
+                      "name": "vancouver",
+                      "address": "123 Smith St",
+                      "phone": "1234567890"
+                    }
+                  ],
+                  "message": "Branches retrieved"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/branches/{id}": {
+      "get": {
+        "summary": "Gets branch by id",
+        "tags": [
+          "Branch"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "example": "123abc"
+            },
+            "required": true,
+            "description": "id of the branch to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the branch with the corresponding id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Branch"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "data": [
+                    {
+                      "id": "123abc",
+                      "name": "Winnipeg",
+                      "address": "123 Main St",
+                      "phone": "1234567890"
+                    }
+                  ],
+                  "message": "Branch retrieved"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates an existing branch",
+        "tags": [
+          "Branch"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "example": "123abc"
+            },
+            "required": true,
+            "description": "id of the branch to be updated"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/Branch"
+              },
+              "example": {
+                "id": "123",
+                "name": "Montreal",
+                "address": "123 French St",
+                "phone": "1234567890"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "the updated branch",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Branch"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "data": [
+                    {
+                      "id": "123abc",
+                      "name": "Winnipeg",
+                      "address": "123 Main St",
+                      "phone": "1234567890"
+                    }
+                  ],
+                  "message": "Branch updated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid inputs"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes an existing branch",
+        "tags": [
+          "Branch"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "example": "123abc"
+            },
+            "required": true,
+            "description": "id of the branch to be deleted"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "branch deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "message": "Branch delete"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/employees": {
+      "post": {
+        "summary": "Create a new employee",
+        "tags": [
+          "Employee"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "component/schemas/Employee"
+              },
+              "example": {
+                "id": "eK4HyF5P542xK3hriGH7",
+                "name": "Michael Scott",
+                "position": "Manager",
+                "department": "Paper",
+                "email": "mscott@rrc.academic.com",
+                "phone": "1231231231",
+                "branch": "5"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "the new employee that was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Employee"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "data": {
+                    "id": "eK4HyF5P542xK3hriGH7",
+                    "name": "Michael Scott",
+                    "position": "Manager",
+                    "department": "Paper",
+                    "email": "mscott@rrc.academic.com",
+                    "phone": "1231231231",
+                    "branch": "5"
+                  },
+                  "message": "Branch created"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid inputs"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Gets all existing employees",
+        "tags": [
+          "Employee"
+        ],
+        "responses": {
+          "200": {
+            "description": "the employees retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Employee"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "data": [
+                    {
+                      "id": "eK4HyF5P542xK3hriGH7",
+                      "name": "Michael Scott",
+                      "position": "Manager",
+                      "department": "Paper",
+                      "email": "mscott@rrc.academic.com",
+                      "phone": "1231231231",
+                      "branch": "5"
+                    },
+                    {
+                      "id": "CPoRjmYPHjXLUDpyDxMA",
+                      "name": "Jimmy Tran",
+                      "position": "Help Desk",
+                      "department": "Finance",
+                      "email": "jimmy@rrc.academic.com",
+                      "phone": "1234567890",
+                      "branch": "1"
+                    }
+                  ],
+                  "message": "Employees retrieved"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/employees/{id}": {
+      "get": {
+        "summary": "Gets employee by id",
+        "tags": [
+          "Employee"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "example": "123abc"
+            },
+            "required": true,
+            "description": "id of the employee to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the employee with the corresponding id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Employee"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "data": [
+                    {
+                      "id": "eK4HyF5P542xK3hriGH7",
+                      "name": "Michael Scott",
+                      "position": "Manager",
+                      "department": "Paper",
+                      "email": "mscott@rrc.academic.com",
+                      "phone": "1231231231"
+                    }
+                  ],
+                  "message": "Employee retrieved"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates an existing employee",
+        "tags": [
+          "Employee"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "example": "123abc"
+            },
+            "required": true,
+            "description": "id of the employee to be updated"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "component/schemas/Employee"
+              },
+              "example": {
+                "id": "eK4HyF5P542xK3hriGH7",
+                "name": "Michael Scott",
+                "position": "Manager",
+                "department": "Paper",
+                "email": "mscott@rrc.academic.com",
+                "phone": "1231231231",
+                "branch": "5"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "the updated employee",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Employee"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "data": {
+                    "id": "eK4HyF5P542xK3hriGH7",
+                    "name": "Michael Scott",
+                    "position": "Manager",
+                    "department": "Paper",
+                    "email": "mscott@rrc.academic.com",
+                    "phone": "1231231231",
+                    "branch": "5"
+                  },
+                  "message": "Employee updated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid inputs"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/employeees/{id}": {
+      "delete": {
+        "summary": "Deletes an existing employee",
+        "tags": [
+          "Employee"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number",
+              "example": "123abc"
+            },
+            "required": true,
+            "description": "id of the employee to be deleted"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "employee deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "message": "Employee delete"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/employees/branches/{branch}": {
+      "get": {
+        "summary": "Gets employees by branch",
+        "tags": [
+          "Employee"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branch",
+            "schema": {
+              "type": "string",
+              "example": "2"
+            },
+            "required": true,
+            "description": "id of the branch to retrieve employees from"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the employees from the branch",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Employee"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/employees/departments/{department}": {
+      "get": {
+        "summary": "Gets employees by department",
+        "tags": [
+          "Employee"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "department",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "name of the department to retrieve employees from"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the employees from the department",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/Employee"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "summary": "Get health status of the application",
+        "tags": [
+          "Health"
+        ],
+        "responses": {
+          "200": {
+            "description": "The application's status, uptime, the current timestamp, and version"
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

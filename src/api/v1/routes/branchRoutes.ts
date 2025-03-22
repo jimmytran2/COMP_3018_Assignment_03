@@ -53,15 +53,13 @@ const router: Router = express.Router();
  *                 message:
  *                   type: string
  *             example:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   data:
- *                     - id: "123"
- *                       name: "Montreal"
- *                       address: "123 French St"
- *                       phone: "1234567890"
- *                   message: "Branch created"
+ *                 status: "success"
+ *                 data:
+ *                   id: "123"
+ *                   name: "Montreal"
+ *                   address: "123 French St"
+ *                   phone: "1234567890"
+ *                 message: "Branch created"
  *       400:
  *         description: Invalid inputs
  *       500:
@@ -71,7 +69,7 @@ router.post("/", validateRequest(branchSchema), branchController.createBranch);
 
 /**
  * @route GET /
- * @description Gets all branches
+ * @description Gets all existing branches
  *
  * @openapi
  * /api/v1/branches:
@@ -89,25 +87,23 @@ router.post("/", validateRequest(branchSchema), branchController.createBranch);
  *                 status:
  *                   type: string
  *                 data:
- *                   type: array
+ *                   type: object
  *                   items:
  *                     $ref: '#/components/schemas/Branch'
  *                 message:
  *                   type: string
- *             examples:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   data:
- *                     - id: "HvbwzmVBkqAkove68KUs"
- *                       name: "calgary"
- *                       address: "123 rainbow St"
- *                       phone: "1234567890"
- *                     - id: "V01OXjtQowI8GnenrAZq"
- *                       name: "vancouver"
- *                       address: "123 Smith St"
- *                       phone: "1234567890"
- *                   message: "Branches retrieved"
+ *             example:
+ *                 status: "success"
+ *                 data:
+ *                   - id: "HvbwzmVBkqAkove68KUs"
+ *                     name: "calgary"
+ *                     address: "123 rainbow St"
+ *                     phone: "1234567890"
+ *                   - id: "V01OXjtQowI8GnenrAZq"
+ *                     name: "vancouver"
+ *                     address: "123 Smith St"
+ *                     phone: "1234567890"
+ *                 message: "Branches retrieved"
  *       500:
  *         description: Internal Server Error
  */
@@ -115,12 +111,12 @@ router.get("/", branchController.getAllBranches);
 
 /**
  * @route GET /:id
- * @description Gets a branch with corresponding id
+ * @description Gets a branch by id
  *
  * @openapi
  * /api/v1/branches/{id}:
  *   get:
- *     summary: Gets branch with corresponding id
+ *     summary: Gets branch by id
  *     tags: [Branch]
  *     parameters:
  *       - in: path
@@ -147,15 +143,13 @@ router.get("/", branchController.getAllBranches);
  *                 message:
  *                   type: string
  *             example:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   data:
- *                     - id: "123abc"
- *                       name: "Winnipeg"
- *                       address: "123 Main St"
- *                       phone: "1234567890"
- *                   message: "Branch retrieved"
+ *                 status: "success"
+ *                 data:
+ *                   - id: "123abc"
+ *                     name: "Winnipeg"
+ *                     address: "123 Main St"
+ *                     phone: "1234567890"
+ *                 message: "Branch retrieved"
  *       500:
  *         description: Internal Server Error
  */
@@ -168,7 +162,7 @@ router.get("/:id", branchController.getBranchById);
  * @openapi
  * /api/v1/branches/{id}:
  *   put:
- *     summary: updates an existing branch
+ *     summary: Updates an existing branch
  *     tags: [Branch]
  *     parameters:
  *       - in: path
@@ -206,15 +200,13 @@ router.get("/:id", branchController.getBranchById);
  *                 message:
  *                   type: string
  *             example:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   data:
- *                     - id: "123abc"
- *                       name: "Winnipeg"
- *                       address: "123 Main St"
- *                       phone: "1234567890"
- *                   message: "Branch updated"
+ *                 status: "success"
+ *                 data:
+ *                   - id: "123abc"
+ *                     name: "Winnipeg"
+ *                     address: "123 Main St"
+ *                     phone: "1234567890"
+ *                 message: "Branch updated"
  *       400:
  *         description: Invalid inputs
  *       500:
@@ -228,12 +220,12 @@ router.put(
 
 /**
  * @route DELETE /:id
- * @description Deletes a branch
+ * @description Deletes an existing branch
  *
  * @openapi
  * /api/v1/branches/{id}:
  *   delete:
- *     summary: deletes an existing branch
+ *     summary: Deletes an existing branch
  *     tags: [Branch]
  *     parameters:
  *       - in: path
@@ -256,10 +248,8 @@ router.put(
  *                 message:
  *                   type: string
  *             example:
- *               successResponse:
- *                 value:
- *                   status: "success"
- *                   message: "Branch delete"
+ *                 status: "success"
+ *                 message: "Branch delete"
  *       500:
  *         description: Internal Server Error
  */
