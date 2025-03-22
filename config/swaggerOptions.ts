@@ -1,4 +1,6 @@
 import swaggerJsDoc from "swagger-jsdoc";
+const serverUrl =
+  process.env.SWAGGER_SERVER_URL || "http://localhost:3000/api/v1";
 
 // define swagger options
 const swaggerOptions: swaggerJsDoc.Options = {
@@ -12,7 +14,7 @@ const swaggerOptions: swaggerJsDoc.Options = {
     },
     server: [
       {
-        url: "http://localhost:3000/api/v1",
+        url: serverUrl,
         description: "Local server",
       },
     ],
@@ -25,6 +27,11 @@ const swaggerOptions: swaggerJsDoc.Options = {
         },
       },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   // path to annotated files
   apis: [
