@@ -126,7 +126,7 @@ router.get("/", branchController.getAllBranches);
  *       - in: path
  *         name: id
  *         schema:
- *           type: number
+ *           type: string
  *           example: "123abc"
  *         required: true
  *         description: id of the branch to retrieve
