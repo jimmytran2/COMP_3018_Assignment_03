@@ -8,7 +8,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import * as employeeService from "../services/employeeServices";
-import type { Employee } from "../services/employeeServices";
+import type { Employee } from "../models/employeeModel";
 import { successResponse } from "../models/responseModel";
 
 /**

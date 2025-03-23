@@ -9,7 +9,7 @@ import {
   getEmployeeByBranch,
   getEmployeeByDepartment,
 } from "../src/api/v1/controllers/employeeControllers";
-import type { Employee } from "../src/api/v1/services/employeeServices";
+import type { Employee } from "../src/api/v1/models/employeeModel";
 
 jest.mock("../src/api/v1/controllers/employeeControllers", () => ({
   createEmployee: jest.fn((req, res) => res.status(201).send()),

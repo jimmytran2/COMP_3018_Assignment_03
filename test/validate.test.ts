@@ -1,8 +1,8 @@
 import { validate } from "../src/api/v1/middleware/validate";
 import { employeeSchema } from "../src/api/v1/validation/employeeValidation";
 import { branchSchema } from "../src/api/v1/validation/branchValidation";
-import { Employee } from "src/api/v1/services/employeeServices";
-import { Branch } from "src/api/v1/services/branchServices";
+import { Employee } from "src/api/v1/models/employeeModel";
+import { Branch } from "src/api/v1/models/branchModel";
 
 describe("Validate function for employees", () => {
   it("should not throw an error for valid employee data", () => {

@@ -8,7 +8,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import * as branchService from "../services/branchServices";
-import type { Branch } from "../services/branchServices";
+import type { Branch } from "../models/branchModel";
 import { successResponse } from "../models/responseModel";
 
 /**

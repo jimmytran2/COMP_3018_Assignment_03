@@ -1,11 +1,21 @@
 import express, { Express } from "express";
 import morgan from "morgan";
+import helmet from "helmet";
+import cors from "cors";
+import dotenv from "dotenv";
+
+// load environment variables from .env
+dotenv.config();
+
+import setupSwagger from "../config/swagger";
 import employeeRoutes from "./api/v1/routes/employeeRoutes";
 import branchRoutes from "./api/v1/routes/branchRoutes";
-import setupSwagger from "../config/swagger";
 import errorHandler from "./api/v1/middleware/errorHandler";
 
 const app: Express = express();
+
+app.use(helmet());
+app.use(cors());
 
 setupSwagger(app);
 
@@ -30,11 +40,6 @@ app.get("/api/v1/health", (req, res) => {
     timestamp: new Date().toISOString(),
     version: "1.0.0",
   });
-});
-
-app.get("/health", (req, res) => {
-  res.status(200);
-  res.send("Server is healthy");
 });
 
 app.use("/api/v1/employees", employeeRoutes);

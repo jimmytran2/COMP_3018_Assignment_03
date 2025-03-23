@@ -14,22 +14,8 @@ import {
 } from "../repositories/firestoreRepository";
 
 import { ServiceError } from "../errors/error";
-
+import { Employee } from "../models/employeeModel";
 const COLLECTION: string = "employees";
-
-/**
- * @interface Employee
- * @description Represents an employee object
- */
-export type Employee = {
-  id: string;
-  name: string;
-  position: string;
-  department: string;
-  email: string;
-  phone: string;
-  branch: string;
-};
 
 /**
  * @description Create a new employee

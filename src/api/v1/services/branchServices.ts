@@ -13,19 +13,8 @@ import {
 } from "../repositories/firestoreRepository";
 
 import { ServiceError } from "../errors/error";
-
+import { Branch } from "../models/branchModel";
 const COLLECTION: string = "branches";
-
-/**
- * @interface Branch
- * @description Represents a branch object
- */
-export type Branch = {
-  id: string;
-  name: string;
-  address: string;
-  phone: string;
-};
 
 /**
  * @description Create a new branch
