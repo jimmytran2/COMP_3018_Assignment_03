@@ -1,9 +1,40 @@
 # Debugging Analysis
 
+## Scenario 1: SwaggerDocs
+
+- **Breakpoint Location:** swagger.ts - line 8
+- **Objective:** Observe whats generated from the generateSwaggerDocs function, check if all desired paths are listed
+
+### Debugger Observations
+
+- **Variable States:**
+  - paths =
+    - "/api/v1/branches"
+    - "/api/v1/branches/{id}"
+    - "/api/v1/employees/{id}"
+    - ...
+  - components
+    - schemas
+      - Branch
+      - Employees
+- **Call Stack:**
+  - the application is started, this loads server.ts, which calls starts app, and in app.ts we call "setupSwagger(app)". That function is defined in swagger.ts which calls generatedSwaggerDocs(). We store this in the variable "swaggerDocs".
+- **Behavior:**
+  - At this point in the program, the application has attempted to generate the swagger documentation using the information given and defined in the swaggerOptions.ts. It is there that the provided information to generate that documentation sits, such as the meta data, components, and paths to the endpoints.
+
+### Analysis
+
+- What did you learn from this scenario?
+  - I learned that the generateSwaggerDocs function properly retrieves the information from swaggerOptions to create the API documentation. Such as the paths that we defined in our "api" block of the swaggerOptions. I learned that it also retrieves the branch and employee schema info.
+- Did you observe any unexpected behavior? If so, what might be the cause?
+  - Something unexpected i did observe was the "schemas" variable under the Local tab. It contained the Branch and Employee schema and related information. I was not expecting that to be there since its nowhere within the const swaggerOptions (swaggerOptions.ts) that we defined, im assuming its cause we define api paths. I do however, see under local, "info","components", "security", and "servers" which are defined in our swaggerOptions.
+- How does this enhance your understanding of the overall project?
+  - This clarified to me how the swagger documentation is generated. It also told me how the different parts of the application interact to generate the documentation. (server > app > swagger > swaggerOptions...)
+
 ## Scenario 2: Request Headers
 
 - **Breakpoint Location:** branchController.ts - line 45
-- **Objective:** Understand the headers that are being applied to API requests
+- **Objective:** Observe the headers that are being applied to API requests
 
 ### Debugger Observations
 
