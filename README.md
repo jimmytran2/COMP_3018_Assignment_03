@@ -144,6 +144,10 @@ More API documentation (GitHub Pages): https://jimmytran2.github.io/COMP_3018_AP
 
 ## Security
 
-- Remember to create a .gitignore file, and place anything you dont want to commit to version control there. Examples are the .env file you created to store your environment variables, api-keys, and other other private information.
+- Remember to create a .gitignore file, and place anything you dont want to commit to version control there. Examples could be .env file you created to store your environment variables, api-keys, and other other private information.
 
 ![alt text](image-2.png)
+
+- In this API, we have the helmet and CORS packages installed and configured.
+- Helmet helps secure Express apps by setting HTTP headers. Helmet by default sets headers that performs a variety of things like isolating API resources, preventing unauthorized requests, and protects against XSS and clickjacking.
+- CORS (Cross-Origin Resource Sharing) is package that restricts/controls how the API allows itself to be accessed from outside domains. CORS can be configured to whitelist or blacklist certain domains or websites from accessing it. Often used for when you want to allow a frontend (from one domain), to be able to connect with your API. (You can then block any other domains from communicating with it)
